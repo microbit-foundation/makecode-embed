@@ -56,85 +56,6 @@ const getOptionsFromVersion = (
   return options;
 };
 
-export const InitialBlankProject: Story = {
-  name: 'Initial blank project',
-  render: (args) => {
-    const { options: version } = args;
-    const options = getOptionsFromVersion(version as string);
-    return (
-      <StoryWrapper key={options.version}>
-        <MakeCodeRenderBlocksProvider options={options}>
-          <MakeCodeBlocksRendering code={initialProject} />
-        </MakeCodeRenderBlocksProvider>
-      </StoryWrapper>
-    );
-  },
-};
-
-export const EmptyString: Story = {
-  name: 'Empty string',
-  render: (args) => {
-    const { options: version } = args;
-    const options = getOptionsFromVersion(version as string);
-    return (
-      <StoryWrapper key={options.version}>
-        <MakeCodeRenderBlocksProvider options={options}>
-          <MakeCodeBlocksRendering code="" />
-        </MakeCodeRenderBlocksProvider>
-      </StoryWrapper>
-    );
-  },
-};
-
-export const EmptyToBlocksTransition: Story = {
-  name: 'Empty to blocks transition',
-  render: (args) => {
-    const { options: version } = args;
-    const options = getOptionsFromVersion(version as string);
-    const [project, setProject] = useState<Project>(initialProject);
-    return (
-      <StoryWrapper key={options.version}>
-        <div style={{ display: 'grid', gridTemplateColumns: '50% 50%' }}>
-          <MakeCodeRenderBlocksProvider options={options}>
-            <MakeCodeBlocksRendering code={project} />
-          </MakeCodeRenderBlocksProvider>
-          <div>
-            <button
-              onClick={() =>
-                setProject(
-                  project === projectWithLayout
-                    ? initialProject
-                    : projectWithLayout
-                )
-              }
-            >
-              Update
-            </button>
-          </div>
-        </div>
-      </StoryWrapper>
-    );
-  },
-};
-
-export const RespectUserLayout: Story = {
-  name: 'Respect user layout',
-  render: (args) => {
-    const { options: version } = args;
-    const options = getOptionsFromVersion(version as string);
-    return (
-      <StoryWrapper key={options.version}>
-        <MakeCodeRenderBlocksProvider options={options}>
-          <MakeCodeBlocksRendering
-            code={projectWithUserLayout}
-            layout={BlockLayout.Clean}
-          />
-        </MakeCodeRenderBlocksProvider>
-      </StoryWrapper>
-    );
-  },
-};
-
 export const Simple: Story = {
   render: (args) => {
     const { options: version } = args;
@@ -288,6 +209,85 @@ export const Robust: Story = {
       <StoryWrapper key={options.version}>
         <MakeCodeRenderBlocksProvider options={options}>
           <MakeCodeBlocksRendering code={{} as Project} />
+        </MakeCodeRenderBlocksProvider>
+      </StoryWrapper>
+    );
+  },
+};
+
+export const InitialBlankProject: Story = {
+  name: 'Initial blank project',
+  render: (args) => {
+    const { options: version } = args;
+    const options = getOptionsFromVersion(version as string);
+    return (
+      <StoryWrapper key={options.version}>
+        <MakeCodeRenderBlocksProvider options={options}>
+          <MakeCodeBlocksRendering code={initialProject} />
+        </MakeCodeRenderBlocksProvider>
+      </StoryWrapper>
+    );
+  },
+};
+
+export const EmptyString: Story = {
+  name: 'Empty string',
+  render: (args) => {
+    const { options: version } = args;
+    const options = getOptionsFromVersion(version as string);
+    return (
+      <StoryWrapper key={options.version}>
+        <MakeCodeRenderBlocksProvider options={options}>
+          <MakeCodeBlocksRendering code="" />
+        </MakeCodeRenderBlocksProvider>
+      </StoryWrapper>
+    );
+  },
+};
+
+export const EmptyToBlocksTransition: Story = {
+  name: 'Empty to blocks transition',
+  render: (args) => {
+    const { options: version } = args;
+    const options = getOptionsFromVersion(version as string);
+    const [project, setProject] = useState<Project>(initialProject);
+    return (
+      <StoryWrapper key={options.version}>
+        <div style={{ display: 'grid', gridTemplateColumns: '50% 50%' }}>
+          <MakeCodeRenderBlocksProvider options={options}>
+            <MakeCodeBlocksRendering code={project} />
+          </MakeCodeRenderBlocksProvider>
+          <div>
+            <button
+              onClick={() =>
+                setProject(
+                  project === projectWithLayout
+                    ? initialProject
+                    : projectWithLayout
+                )
+              }
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </StoryWrapper>
+    );
+  },
+};
+
+export const RespectUserLayout: Story = {
+  name: 'Respect user layout',
+  render: (args) => {
+    const { options: version } = args;
+    const options = getOptionsFromVersion(version as string);
+    return (
+      <StoryWrapper key={options.version}>
+        <MakeCodeRenderBlocksProvider options={options}>
+          <MakeCodeBlocksRendering
+            code={projectWithUserLayout}
+            layout={BlockLayout.Clean}
+          />
         </MakeCodeRenderBlocksProvider>
       </StoryWrapper>
     );
