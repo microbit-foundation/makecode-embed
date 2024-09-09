@@ -6,6 +6,11 @@ It is intended to be used by other Micro:bit Educational Foundation projects
 that need to embed MakeCode and, when the API stabilises, to be useful to others
 who embed MakeCode.
 
+## Documentation
+
+There isn't any documentation yet. You can find a StoryBook demo of the
+components at https://microbit-foundation.github.io/makecode-embed/
+
 ## License
 
 This software is under the MIT open source license.
