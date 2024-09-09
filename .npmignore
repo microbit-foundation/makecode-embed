@@ -22,6 +22,7 @@ __tests__
 coverage
 
 **/stories/*
+storybook-static/
 
 # Sources
 node_modules

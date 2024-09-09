@@ -15,9 +15,6 @@
     "node": ">=20",
     "npm": ">=10"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
   "exports": {
     "vanilla": {
       "import": "./dist/vanilla/index.js",
