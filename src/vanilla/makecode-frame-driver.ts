@@ -166,8 +166,22 @@ export class MakeCodeFrameDriver {
     }
   >();
 
+  private _expectedOrigin: string | undefined;
+  private expectedOrigin = () => {
+    if (this._expectedOrigin) {
+      return this._expectedOrigin;
+    }
+    const src = this.iframe()?.src;
+    if (src) {
+      this._expectedOrigin = new URL(src).origin;
+      return this._expectedOrigin;
+    }
+    return undefined;
+  };
+
   private listener = (event: MessageEvent) => {
-    if (event.origin !== 'https://makecode.microbit.org') {
+    const expectedOrigin = this.expectedOrigin();
+    if (!expectedOrigin || event.origin !== expectedOrigin) {
       return;
     }
     const { data } = event;
