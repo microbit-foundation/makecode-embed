@@ -20,6 +20,7 @@ export {
 } from '../vanilla/examples.js';
 
 export type {
+  BlockLayout,
   CreateEvent,
   EditorContentLoadedRequest,
   EditorEvent,
@@ -41,7 +42,7 @@ export type {
   RenderXmlOptions,
   ShareResult,
   StartActivityOptions,
-  ToolboxCategoryDefinition,
   ToolboxBlockDefinition,
+  ToolboxCategoryDefinition,
   UIEvent,
 } from '../vanilla/pxt.js';
