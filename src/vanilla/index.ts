@@ -1,14 +1,15 @@
-export { MakeCodeFrameDriver } from './makecode-frame-driver.js';
-
-export {
-  default as useMakeCodeRenderBlocks,
-  type MakeCodeRenderBlocksReturn,
-} from './makecode-render-blocks.js';
-
 export {
   defaultMakeCodeProject,
   emptyMakeCodeProject,
 } from '../vanilla/examples.js';
+
+export {
+  MakeCodeFrameDriver,
+  createMakeCodeURL,
+  type Options,
+} from '../vanilla/makecode-frame-driver.js';
+
+export { BlockLayout } from '../vanilla/pxt.js';
 
 export type {
   CreateEvent,
@@ -32,7 +33,7 @@ export type {
   RenderXmlOptions,
   ShareResult,
   StartActivityOptions,
-  ToolboxCategoryDefinition,
   ToolboxBlockDefinition,
+  ToolboxCategoryDefinition,
   UIEvent,
 } from '../vanilla/pxt.js';

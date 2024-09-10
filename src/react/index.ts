@@ -19,6 +19,11 @@ export {
   emptyMakeCodeProject,
 } from '../vanilla/examples.js';
 
+export {
+  MakeCodeFrameDriver,
+  createMakeCodeURL,
+} from '../vanilla/makecode-frame-driver.js';
+
 export { BlockLayout } from '../vanilla/pxt.js';
 
 export type {
