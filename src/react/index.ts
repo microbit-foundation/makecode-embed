@@ -8,6 +8,12 @@ export {
   type UseMakeCodeRenderBlocksReturn,
 } from './useMakeCodeRenderBlocks.js';
 
+export { MakeCodeRenderBlocksProvider } from './MakeCodeRenderBlocksProvider.js';
+export {
+  default as MakeCodeBlocksRendering,
+  type MakeCodeBlocksRenderingProps,
+} from './MakeCodeBlocksRendering.js';
+
 export {
   defaultMakeCodeProject,
   emptyMakeCodeProject,

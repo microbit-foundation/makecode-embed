@@ -16,11 +16,11 @@
     "npm": ">=10"
   },
   "exports": {
-    "vanilla": {
+    "./vanilla": {
       "import": "./dist/vanilla/index.js",
       "types": "./dist/vanilla/index.d.ts"
     },
-    "react": {
+    "./react": {
       "import": "./dist/react/index.js",
       "types": "./dist/react/index.d.ts"
     }
