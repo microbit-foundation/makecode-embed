@@ -19,8 +19,9 @@ export {
   emptyMakeCodeProject,
 } from '../vanilla/examples.js';
 
+export { BlockLayout } from '../vanilla/pxt.js';
+
 export type {
-  BlockLayout,
   CreateEvent,
   EditorContentLoadedRequest,
   EditorEvent,
