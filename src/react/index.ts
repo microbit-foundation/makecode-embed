@@ -35,6 +35,8 @@ export type {
   EditorMessageTutorialExitEventRequest,
   EditorMessageTutorialLoadedEventRequest,
   EditorMessageTutorialProgressEventRequest,
+  EditorWorkspaceSaveRequest,
+  EditorWorkspaceSyncRequest,
   ImportExternalProjectOptions,
   ImportFileOptions,
   ImportProjectOptions,
