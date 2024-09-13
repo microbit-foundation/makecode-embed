@@ -297,6 +297,7 @@ export class MakeCodeFrameDriver {
       // Native app oriented event that doesn't have a 'type' field.
       switch (data.cmd) {
         case 'backtap':
+          // MakeCode seems to send this twice for a single click but there's little we can do here.
           return this.options.onBack?.();
         case 'backpress':
           return this.options.onBackLongPress?.();
