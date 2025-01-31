@@ -1,5 +1,7 @@
 MIT License
 
+<!-- TODO: Check whether we need to add a year/author to this? -->
+
 Copyright (c) YEAR AUTHOR
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
