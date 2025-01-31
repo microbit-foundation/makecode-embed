@@ -12,6 +12,9 @@ who embed MakeCode.
 
 ## Usage
 
+- [React usage documentation](docs/react.md)
+- [VanillaJS usage documentation](docs/vanilla.md)
+
 ## License
 
 This software is under the MIT open source license.

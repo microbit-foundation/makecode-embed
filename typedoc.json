@@ -4,6 +4,7 @@
     "micro:bit tech site": "https://tech.microbit.org",
     "GitHub": "https://github.com/microbit-foundation/makecode-embed"
   },
+  "projectDocuments": ["docs/react.md", "docs/vanilla.md"],
   "entryPoints": ["./src/react/index.ts", "./src/vanilla/index.ts"],
   "out": "./docs/build",
   "readme": "./README.md",
