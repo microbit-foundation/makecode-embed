@@ -1,21 +1,22 @@
-# React/JavaScript library for embedding Microsoft MakeCode as an iframe
+# MakeCode Embed
 
-This project is a work in progress.
+<a href="https://microbit-foundation.github.io/makecode-embed/" class="typedoc-ignore">This documentation is best viewed on the documentation site rather than GitHub or NPM package site.</a>
+
+This is a React/JavaScript library for embedding Microsoft MakeCode as an iframe.
 
 It is intended to be used by other Micro:bit Educational Foundation projects
 that need to embed MakeCode and, when the API stabilises, to be useful to others
 who embed MakeCode.
 
-## Documentation
+- [StoryBook demo of the components](https://makecode-embed.pages.dev/)
 
-There isn't any documentation yet. You can find a StoryBook demo of the
-components at https://microbit-foundation.github.io/makecode-embed/
+## Usage
 
 ## License
 
 This software is under the MIT open source license.
 
-[SPDX-License-Identifier: MIT](LICENSE)
+[SPDX-License-Identifier: MIT](LICENSE.md)
 
 We use dependencies via the NPM registry as specified by the package.json file under common Open Source licenses.
 

@@ -31,7 +31,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "ci": "npm run lint && npm run build && npm run build:storybook",
     "storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build"
+    "build:storybook": "storybook build",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -60,6 +61,7 @@
     "prettier": "^3.2.5",
     "storybook": "^8.2.9",
     "tslib": "^2.6.2",
+    "typedoc": "^0.27.6",
     "typescript": "^5.2.2"
   }
 }

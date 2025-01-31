@@ -50,7 +50,7 @@ type EditorMessageRequestUnion =
   | EditorMessageNewProjectRequest
   | EditorMessageRequest;
 
-interface EditorShareOptions {
+export interface EditorShareOptions {
   headerId: string;
   projectName: string;
 }

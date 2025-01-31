@@ -19,15 +19,14 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export interface JsonScriptMeta {
-  blocksWidth?: number;
-  blocksHeight?: number;
-  versions?: TargetVersions;
-}
-
 export interface InstallHeader {
   name: string; // script name, should always be in sync with pxt.json name
-  meta: JsonScriptMeta; // script meta data
+  meta: {
+    // json script meta data
+    blocksWidth?: number;
+    blocksHeight?: number;
+    versions?: TargetVersions;
+  };
   editor: string; // editor that we're in
   board?: string; // name of the package that contains the board.json info
   temporary?: boolean; // don't serialize project
@@ -37,7 +36,10 @@ export interface InstallHeader {
   targetVersion: string;
   pubId: string; // for published scripts
   pubCurrent: boolean; // is this exactly pubId, or just based on it
-  pubVersions?: PublishVersion[];
+  pubVersions?: {
+    id: string;
+    type: 'snapshot' | 'permalink';
+  }[];
   pubPermalink?: string; // permanent (persistent) share ID
   anonymousSharePreference?: boolean; // if true, default to sharing anonymously even when logged in
   githubId?: string;
@@ -46,7 +48,12 @@ export interface InstallHeader {
   // in progress tutorial if any
   tutorial?: TutorialOptions;
   // completed tutorial info if any
-  tutorialCompleted?: TutorialCompletionInfo;
+  tutorialCompleted?: {
+    // id of the tutorial
+    id: string;
+    // number of steps completed
+    steps: number;
+  };
   // workspace guid of the extension under test
   extensionUnderTest?: string;
   // id of cloud user who created this project
@@ -75,11 +82,6 @@ export interface Header extends InstallHeader {
 
   // Other
   _rev: string; // used for idb / pouchdb revision tracking
-}
-
-interface PublishVersion {
-  id: string;
-  type: 'snapshot' | 'permalink';
 }
 
 export type ScriptText = Record<string, string>;
@@ -603,7 +605,7 @@ export interface EditorMessageGetToolboxCategoriesResponse {
   categories: ToolboxCategoryDefinition[];
 }
 
-interface ProjectTemplate {
+export interface ProjectTemplate {
   id: string;
   config: PackageConfig;
   files: Record<string, string>;
@@ -809,17 +811,7 @@ export type CloudStatus =
   | 'conflict'
   | 'localEdits';
 
-interface TargetVersions {
-  target: string;
-  targetId?: string;
-  targetWebsite?: string;
-  pxt?: string;
-  tag?: string;
-  branch?: string;
-  commits?: string; // URL
-}
-
-type CodeCardType =
+export type CodeCardType =
   | 'file'
   | 'example'
   | 'codeExample'
@@ -832,13 +824,13 @@ type CodeCardType =
   | 'forumExample'
   | 'sharedExample'
   | 'link';
-type CodeCardEditorType = 'blocks' | 'js' | 'py';
+export type CodeCardEditorType = 'blocks' | 'js' | 'py';
 
-interface Map<T> {
+export interface DependencyMap<T> {
   [index: string]: T;
 }
 
-interface TargetVersions {
+export interface TargetVersions {
   target: string;
   targetId?: string;
   targetWebsite?: string;
@@ -848,12 +840,7 @@ interface TargetVersions {
   commits?: string; // URL
 }
 
-interface Size {
-  width: number;
-  height: number;
-}
-
-interface CodeCardAction {
+export interface CodeCardAction {
   url: string;
   editor?: CodeCardEditorType;
   cardType?: CodeCardType;
@@ -862,7 +849,7 @@ interface CodeCardAction {
 /**
  * The schema for the pxt.json package files
  */
-interface PackageConfig {
+export interface PackageConfig {
   name: string;
   version?: string;
   // installedVersion?: string; moved to Package class
@@ -872,13 +859,13 @@ interface PackageConfig {
   documentation?: string; // doc page to open when loading project, used by sidedocs
   targetVersions?: TargetVersions; // versions of the target/pxt the package was compiled against
   description?: string;
-  dependencies: Map<string>;
+  dependencies: DependencyMap<string>;
   license?: string;
   authors?: string[];
   files: string[];
   simFiles?: string[];
   testFiles?: string[];
-  fileDependencies?: Map<string>; // exclude certain files if dependencies are not fulfilled
+  fileDependencies?: DependencyMap<string>; // exclude certain files if dependencies are not fulfilled
   preferredEditor?: string; // tsprj, blocksprj, pyprj
   languageRestriction?: LanguageRestriction; // language restrictions that have been placed on the package
   testDependencies?: Record<string, string>;
@@ -886,14 +873,21 @@ interface PackageConfig {
   public?: boolean;
   partial?: boolean; // true if project is not compileable on its own (eg base)
   binaryonly?: boolean;
-  platformio?: PlatformIOConfig;
+  platformio?: {
+    dependencies?: DependencyMap<string>;
+  };
   compileServiceVariant?: string;
   palette?: string[];
   paletteNames?: string[];
-  screenSize?: Size;
+  screenSize?: {
+    width: number;
+    height: number;
+  };
   yotta?: YottaConfig;
-  codal?: CodalConfig;
-  npmDependencies?: Map<string>;
+  codal?: {
+    libraries?: string[];
+  };
+  npmDependencies?: DependencyMap<string>;
   card?: CodeCard;
   additionalFilePath?: string;
   additionalFilePaths?: string[];
@@ -923,10 +917,10 @@ interface PackageConfig {
   disableTargetTemplateFiles?: boolean; // do not override target template files when commiting to github
   theme?: string | Record<string, string>;
   assetPack?: boolean; // if set to true, only the assets of this project will be imported when added as an extension (no code)
-  assetPacks?: Map<boolean>; // a map of dependency id to boolean that indicates which dependencies should be imported as asset packs
+  assetPacks?: DependencyMap<boolean>; // a map of dependency id to boolean that indicates which dependencies should be imported as asset packs
 }
 
-interface PackageExtension {
+export interface PackageExtension {
   // Namespace to add the button under, defaults to package name
   namespace?: string;
   // Group to place button in
@@ -943,34 +937,24 @@ interface PackageExtension {
   localUrl?: string;
 }
 
-interface PlatformIOConfig {
-  dependencies?: Map<string>;
-}
-
-interface CompilationConfig {
-  description: string;
-  config: any;
-}
-
-interface CodalConfig {
-  libraries?: string[];
-}
-
-interface YottaConfig {
-  dependencies?: Map<string>;
+export interface YottaConfig {
+  dependencies?: DependencyMap<string>;
   config?: any;
   /**
    * Overridable config flags
    */
   optionalConfig?: any;
-  userConfigs?: CompilationConfig[];
+  userConfigs?: {
+    description: string;
+    config: any;
+  }[];
   /* deprecated */
   configIsJustDefaults?: boolean;
   /* deprecated */
   ignoreConflicts?: boolean;
 }
 
-interface CodeCard {
+export interface CodeCard {
   name?: string;
   shortName?: string;
   title?: string;
@@ -1023,21 +1007,18 @@ interface CodeCard {
   className?: string;
   variant?: string;
 }
-
-type SnippetOutputType = 'blocks';
-type SnippetOutputBehavior = /*assumed default*/ 'merge' | 'replace';
-interface SnippetConfig {
+export interface SnippetConfig {
   name: string;
   namespace: string;
   group?: string;
   label: string;
-  outputType: SnippetOutputType;
-  outputBehavior?: SnippetOutputBehavior;
+  outputType: 'blocks';
+  outputBehavior?: /*assumed default*/ 'merge' | 'replace';
   initialOutput?: string;
   questions: SnippetQuestions[];
 }
 
-type SnippetAnswerTypes =
+export type SnippetAnswerTypes =
   | 'number'
   | 'text'
   | 'variableName'
@@ -1046,70 +1027,56 @@ type SnippetAnswerTypes =
   | 'yesno'
   | string; // TODO(jb) Should include custom answer types for number, enums, string, image
 
-interface SnippetGoToOptions {
+export interface SnippetGoToOptions {
   question?: number;
-  validate?: SnippetValidate;
+  validate?: {
+    regex?: {
+      token: string;
+      regex: string;
+      match?: SnippetParameters;
+      noMatch?: SnippetParameters;
+    };
+  };
   parameters?: SnippetParameters[]; // Answer token with corresponding question
 }
 
-interface SnippetParameters {
+export interface SnippetParameters {
   token?: string;
   answer?: string;
   question: number;
 }
 
-interface SnippetInputAnswerSingular {
-  answerToken: string;
-  defaultAnswer: SnippetAnswerTypes;
-}
-
-interface SnippetInputAnswerPlural {
-  answerTokens: string[];
-  defaultAnswers: SnippetAnswerTypes[];
-}
-
-interface SnippetInputOtherType {
-  type: string;
-}
-
-interface SnippetInputNumberType {
-  type: 'number' | 'positionPicker';
-  max?: number;
-  min?: number;
-}
-
-interface SnippetInputDropdownType {
-  type: 'dropdown';
-  options: Record<string, string>;
-}
-
-interface SnippetInputYesNoType {
-  type: 'yesno';
-}
-
-type SnippetQuestionInput = { label?: string } & (
-  | SnippetInputAnswerSingular
-  | SnippetInputAnswerPlural
+export type SnippetQuestionInput = { label?: string } & (
+  | {
+      // Singular input answer.
+      answerToken: string;
+      defaultAnswer: SnippetAnswerTypes;
+    }
+  | {
+      // Plural input answer.
+      answerTokens: string[];
+      defaultAnswers: SnippetAnswerTypes[];
+    }
 ) &
   (
-    | SnippetInputOtherType
-    | SnippetInputNumberType
-    | SnippetInputDropdownType
-    | SnippetInputYesNoType
+    | {
+        type: string;
+      }
+    | {
+        type: 'number' | 'positionPicker';
+        max?: number;
+        min?: number;
+      }
+    | {
+        type: 'dropdown';
+        options: Record<string, string>;
+      }
+    | {
+        type: 'yesno';
+      }
   );
 
-interface SnippetValidateRegex {
-  token: string;
-  regex: string;
-  match?: SnippetParameters;
-  noMatch?: SnippetParameters;
-}
-
-interface SnippetValidate {
-  regex?: SnippetValidateRegex;
-}
-
-interface SnippetQuestions {
+export interface SnippetQuestions {
   title: string;
   output?: string;
   outputConditionalOnAnswer?: string;
@@ -1119,7 +1086,7 @@ interface SnippetQuestions {
   hint?: string;
 }
 
-interface TutorialOptions {
+export interface TutorialOptions {
   tutorial?: string; // tutorial
   tutorialName?: string; // tutorial title
   tutorialReportId?: string; // if this tutorial was user generated, the report abuse id
@@ -1147,7 +1114,7 @@ interface TutorialOptions {
   simTheme?: Partial<PackageConfig>;
 }
 
-interface TutorialStepInfo {
+export interface TutorialStepInfo {
   // Step metadata
   showHint?: boolean; // automatically displays hint
   showDialog?: boolean; // no coding, displays in modal
@@ -1172,24 +1139,15 @@ interface TutorialStepInfo {
   localValidationConfig?: CodeValidationConfig;
 }
 
-interface TutorialCompletionInfo {
-  // id of the tutorial
-  id: string;
-  // number of steps completed
-  steps: number;
-}
-
-interface TutorialBlockConfigEntry {
-  blockId?: string;
-  xml?: string;
-}
-
-interface TutorialBlockConfig {
+export interface TutorialBlockConfig {
   md?: string; // `blockconfig` markdown fragment
-  blocks?: TutorialBlockConfigEntry[]; // markdown fragment can contain multiple block definitions
+  blocks?: {
+    blockId?: string;
+    xml?: string;
+  }[]; // markdown fragment can contain multiple block definitions
 }
 
-interface TutorialMetadata {
+export interface TutorialMetadata {
   activities?: boolean; // tutorial consists of activities, then steps. uses `###` for steps
   explicitHints?: boolean; // tutorial expects explicit hints in `#### ~ tutorialhint` format
   flyoutOnly?: boolean; // no categories, display all blocks in flyout
@@ -1202,21 +1160,17 @@ interface TutorialMetadata {
   preferredEditor?: string; // preferred editor for opening the tutorial
 }
 
-interface TutorialActivityInfo {
+export interface TutorialActivityInfo {
   name: string;
   step: number;
 }
 
-interface CodeValidatorBaseProperties {
-  enabled?: string;
-  markers?: string;
-}
-
-interface CodeValidatorMetadata {
-  validatorType: string;
-  properties: CodeValidatorBaseProperties;
-}
-
-interface CodeValidationConfig {
-  validatorsMetadata: CodeValidatorMetadata[];
+export interface CodeValidationConfig {
+  validatorsMetadata: {
+    validatorType: string;
+    properties: {
+      enabled?: string;
+      markers?: string;
+    };
+  }[];
 }
