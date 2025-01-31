@@ -24,6 +24,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 `;
 ```
 
+For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/createMakeCodeRenderBlocks.stories.tsx).
+
 ## Embed MakeCode editor
 
 Use {@link vanilla.MakeCodeFrameDriver | MakeCodeFrameDriver} class to create a driverRef for an iframe element.
@@ -68,3 +70,5 @@ const driverRef = new MakeCodeFrameDriver(
 );
 driverRef.initialize();
 ```
+
+For more examples, take a look at the [MakeCode frame demo source code](../src/stories/makeCodeFrameDriver.stories.tsx).
