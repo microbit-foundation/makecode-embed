@@ -8,7 +8,7 @@ title: React Usage
 
 ## Blocks rendering
 
-Use {@link react.MakeCodeRenderBlocksProvider | MakeCodeRenderBlocksProvider} and {@link react.MakeCodeBlocksRendering | MakeCodeBlocksRendering} React components to render MakeCode blocks for a MakeCode project. You can see examples of projects used for the demo in [fixtures.ts](../src/stories/fixtures.ts).
+Use {@link react.MakeCodeRenderBlocksProvider | MakeCodeRenderBlocksProvider} and {@link react.MakeCodeBlocksRendering | MakeCodeBlocksRendering} React components to render MakeCode blocks for a MakeCode project. Example MakeCode projects used for the demo are defined in [fixtures.ts](../src/stories/fixtures.ts).
 
 ```js
 import {
@@ -20,6 +20,8 @@ import {
   <MakeCodeBlocksRendering code={project} />
 </MakeCodeRenderBlocksProvider>;
 ```
+
+For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/MakeCodeBlocksRendering.stories.tsx).
 
 ## Embed MakeCode editor
 
@@ -45,3 +47,5 @@ import { MakeCodeFrame } from '@microbit/makecode-embed/react';
   onTutorialEvent={(e) => console.log('tutorialEvent', e)}
 />
 ```
+
+For more examples, take a look at the [MakeCode frame demo source code](../src/stories/MakeCodeFrame.stories.tsx).
