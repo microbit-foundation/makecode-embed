@@ -36,7 +36,7 @@ import {
 } from "@microbit/makecode-embed/vanilla";
 
 // Set up an iframe element.
-let iframe = document.createElement("iframe");
+const iframe = document.createElement("iframe");
 iframe.allow = "usb; autoplay; camera; microphone;";
 iframe.src = createMakeCodeURL(
   "https://makecode.microbit.org",
@@ -53,7 +53,7 @@ document.querySelector<HTMLDivElement>("#app")!.appendChild(iframe);
 // Create and initialise an instance of MakeCodeFrameDriver.
 const driverRef = new MakeCodeFrameDriver(
   {
-    initialProjects: async () => [defaultMakeCodeProject],
+    initialProjects: async () => [makeCodeProject],
     onEditorContentLoaded: (e) => console.log("editorContentLoaded", e),
     onWorkspaceLoaded: (e) => console.log("workspaceLoaded", e),
     onWorkspaceSync: (e) => console.log("workspaceSync", e),
