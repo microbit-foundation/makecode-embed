@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
-import createMakeCodeRenderBlocks, {
+import {
+  createMakeCodeRenderBlocks,
   MakeCodeRenderBlocksOptions,
   MakeCodeRenderBlocksReturn,
   RenderBlocksRequest,

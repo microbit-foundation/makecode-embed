@@ -80,7 +80,7 @@ interface RenderBlocksRequestResponse {
 
 type PendingRequests = { [id: string]: RenderBlocksRequestResponse };
 
-const createMakeCodeRenderBlocks = (
+export const createMakeCodeRenderBlocks = (
   options: MakeCodeRenderBlocksOptions
 ): MakeCodeRenderBlocksReturn => {
   const defaultedOptions: MakeCodeRenderBlocksOptions = {
@@ -311,5 +311,3 @@ function createIframe(
   document.body.appendChild(f);
   return f;
 }
-
-export default createMakeCodeRenderBlocks;

@@ -66,8 +66,11 @@ export type {
   YottaConfig,
 } from '../vanilla/pxt.js';
 
+export { createMakeCodeRenderBlocks } from '../vanilla/makecode-render-blocks.js';
+
 export type {
   MakeCodeRenderBlocksOptions,
+  MakeCodeRenderBlocksReturn,
   RenderBlocksResponse,
   RenderBlocksRequest,
 } from '../vanilla/makecode-render-blocks.js';
