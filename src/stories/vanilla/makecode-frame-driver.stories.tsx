@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useRef } from 'react';
-import { defaultMakeCodeProject } from '../vanilla/examples.js';
+import { defaultMakeCodeProject } from '../../vanilla/examples.js';
 import {
   createMakeCodeURL,
   MakeCodeFrameDriver,
   Options,
-} from '../vanilla/makecode-frame-driver.js';
-import { Project } from '../vanilla/pxt.js';
-import MakeCodeToolbar from './MakeCodeToolbar.js';
-import StoryWrapper from './StoryWrapper.js';
+} from '../../vanilla/makecode-frame-driver.js';
+import { Project } from '../../vanilla/pxt.js';
+import MakeCodeToolbar from '../MakeCodeToolbar.js';
+import StoryWrapper from '../StoryWrapper.js';
 
 interface StoryArgs {
   options?: {
@@ -28,14 +28,6 @@ const meta: Meta<StoryArgs> = {
 export default meta;
 
 type Story = StoryObj<StoryArgs>;
-
-const toolbarStyles = {
-  fontFamily: 'sans-serif',
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '5px',
-  margin: '10px 0',
-} as const;
 
 const renderEditor = (args: StoryArgs) => {
   const savedProjects = useRef<Map<string, Project>>(new Map());

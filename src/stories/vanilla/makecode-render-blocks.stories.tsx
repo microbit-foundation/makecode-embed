@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import {
   createMakeCodeRenderBlocks,
   MakeCodeRenderBlocksOptions,
-} from '../vanilla/makecode-render-blocks.js';
+} from '../../vanilla/makecode-render-blocks.js';
 import {
   initialProject,
   project,
@@ -12,9 +12,9 @@ import {
   projectWithLayout,
   projectWithMelody,
   projectWithTwoExtensions,
-} from './fixtures.js';
-import { Project } from '../vanilla/pxt.js';
-import StoryWrapper from './StoryWrapper.js';
+} from '../fixtures.js';
+import { Project } from '../../vanilla/pxt.js';
+import StoryWrapper from '../StoryWrapper.js';
 
 interface StoryArgs {
   options: MakeCodeRenderBlocksOptions | undefined;

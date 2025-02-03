@@ -24,7 +24,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 `;
 ```
 
-For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/createMakeCodeRenderBlocks.stories.tsx).
+For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/vanilla/makecode-render-blocks.stories.tsx).
 
 ## Embed MakeCode editor
 
@@ -55,20 +55,16 @@ document.querySelector<HTMLDivElement>("#app")!.appendChild(iframe);
 // Create and initialise an instance of MakeCodeFrameDriver.
 const driverRef = new MakeCodeFrameDriver(
   {
+    controllerId: "YOUR APP NAME HERE",
     initialProjects: async () => [makeCodeProject],
-    onEditorContentLoaded: (e) => console.log("editorContentLoaded", e),
-    onWorkspaceLoaded: (e) => console.log("workspaceLoaded", e),
-    onWorkspaceSync: (e) => console.log("workspaceSync", e),
-    onWorkspaceReset: (e) => console.log("workspaceReset", e),
-    onWorkspaceEvent: (e) => console.log("workspaceEvent", e),
+    onEditorContentLoaded: (e) => console.log("MakeCode is now ready"),
     onWorkspaceSave: (e) => {
       console.log(e.project!.header!.id, e.project);
     },
-    onTutorialEvent: (e) => console.log("tutorialEvent", e),
   },
   () => iframe
 );
 driverRef.initialize();
 ```
 
-For more examples, take a look at the [MakeCode frame demo source code](../src/stories/makeCodeFrameDriver.stories.tsx).
+For more examples, take a look at the [MakeCode frame demo source code](../src/stories/vanilla/makecode-frame-driver.stories.tsx).

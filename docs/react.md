@@ -21,7 +21,7 @@ import {
 </MakeCodeRenderBlocksProvider>;
 ```
 
-For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/MakeCodeBlocksRendering.stories.tsx).
+For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/react/MakeCodeBlocksRendering.stories.tsx).
 
 ## Embed MakeCode editor
 
@@ -33,8 +33,9 @@ import { MakeCodeFrame } from '@microbit/makecode-embed/react';
 <MakeCodeFrame
   ref={ref}
   controller={1}
-  controllerId={controllerId}
+  controllerId="YOUR APP NAME HERE"
   initialProjects={[savedProject]}
+  onEditorContentLoaded={(e) => console.log("MakeCode is now ready")},
   onWorkspaceSave={(e) => {
     // Set project as project changes in the editor.
     setSavedProject(e.project);
@@ -42,4 +43,4 @@ import { MakeCodeFrame } from '@microbit/makecode-embed/react';
 />;
 ```
 
-For more examples, take a look at the [MakeCode frame demo source code](../src/stories/MakeCodeFrame.stories.tsx).
+For more examples, take a look at the [MakeCode frame demo source code](../src/stories/react/MakeCodeFrame.stories.tsx).

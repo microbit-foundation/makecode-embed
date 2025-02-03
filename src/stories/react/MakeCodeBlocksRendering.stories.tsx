@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ReactNode, useState } from 'react';
-import MakeCodeBlocksRendering from '../react/MakeCodeBlocksRendering.js';
+import MakeCodeBlocksRendering from '../../react/MakeCodeBlocksRendering.js';
 import {
   initialProject,
   project,
@@ -12,10 +12,10 @@ import {
   projectWithTwoExtensions,
   projectWithUserLayout,
   strawbeesExample,
-} from './fixtures.js';
-import { MakeCodeRenderBlocksProvider } from '../react/MakeCodeRenderBlocksProvider.js';
-import { MakeCodeRenderBlocksOptions } from '../vanilla/makecode-render-blocks.js';
-import { BlockLayout, Project } from '../vanilla/pxt.js';
+} from '../fixtures.js';
+import { MakeCodeRenderBlocksProvider } from '../../react/MakeCodeRenderBlocksProvider.js';
+import { MakeCodeRenderBlocksOptions } from '../../vanilla/makecode-render-blocks.js';
+import { BlockLayout, Project } from '../../vanilla/pxt.js';
 
 const meta: Meta<typeof MakeCodeRenderBlocksProvider> = {
   title: 'stories/React/MakeCodeBlocksRendering',

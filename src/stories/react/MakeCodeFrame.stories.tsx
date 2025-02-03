@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useCallback, useRef } from 'react';
-import { defaultMakeCodeProject } from '../vanilla/examples.js';
-import { MakeCodeFrameDriver } from '../vanilla/makecode-frame-driver.js';
+import { defaultMakeCodeProject } from '../../vanilla/examples.js';
+import { MakeCodeFrameDriver } from '../../vanilla/makecode-frame-driver.js';
 import {
   default as MakeCodeFrame,
   MakeCodeFrameProps,
-} from '../react/MakeCodeFrame.js';
-import { Project } from '../vanilla/pxt.js';
-import { controllerId } from './config.js';
-import StoryWrapper from './StoryWrapper.js';
-import MakeCodeToolbar from './MakeCodeToolbar.js';
+} from '../../react/MakeCodeFrame.js';
+import { Project } from '../../vanilla/pxt.js';
+import { controllerId } from '../config.js';
+import StoryWrapper from '../StoryWrapper.js';
+import MakeCodeToolbar from '../MakeCodeToolbar.js';
 
 const meta: Meta<typeof MakeCodeFrame> = {
   title: 'stories/React/MakeCodeFrame',
