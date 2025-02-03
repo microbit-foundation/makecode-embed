@@ -11,6 +11,7 @@ import { controllerId } from './config.js';
 import StoryWrapper from './StoryWrapper.js';
 
 const meta: Meta<typeof MakeCodeFrame> = {
+  title: 'stories/React/MakeCodeFrame',
   component: MakeCodeFrame,
   argTypes: {
     version: {

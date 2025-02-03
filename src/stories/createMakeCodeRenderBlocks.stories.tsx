@@ -21,7 +21,7 @@ interface StoryArgs {
 }
 
 const meta: Meta<StoryArgs> = {
-  title: 'stories/createMakeCodeRenderBlocks',
+  title: 'stories/VanillaJS/createMakeCodeRenderBlocks',
 };
 
 export default meta;

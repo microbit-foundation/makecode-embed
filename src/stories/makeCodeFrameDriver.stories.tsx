@@ -19,7 +19,7 @@ interface StoryArgs {
 }
 
 const meta: Meta<StoryArgs> = {
-  title: 'stories/makeCodeFrameDriver',
+  title: 'stories/VanillaJS/makeCodeFrameDriver',
 };
 
 export default meta;

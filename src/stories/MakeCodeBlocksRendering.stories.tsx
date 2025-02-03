@@ -18,6 +18,7 @@ import { MakeCodeRenderBlocksOptions } from '../vanilla/makecode-render-blocks.j
 import { BlockLayout, Project } from '../vanilla/pxt.js';
 
 const meta: Meta<typeof MakeCodeRenderBlocksProvider> = {
+  title: 'stories/React/MakeCodeBlocksRendering',
   component: MakeCodeRenderBlocksProvider,
   argTypes: {
     options: {
