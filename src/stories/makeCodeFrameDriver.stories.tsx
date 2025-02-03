@@ -6,6 +6,7 @@ import {
 } from '../vanilla/makecode-frame-driver.js';
 import { Project } from '../vanilla/pxt.js';
 import { defaultMakeCodeProject } from '../vanilla/examples.js';
+import { HtmlToReactWrapper } from './HtmlToReactWrapper.js';
 
 interface StoryArgs {
   options?: {
@@ -26,9 +27,15 @@ export default meta;
 
 type Story = StoryObj<StoryArgs>;
 
-const renderEditor = (args: StoryArgs) => {
-  const elementId = 'story-wrapper';
+const toolbarStyles = {
+  fontFamily: 'sans-serif',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '5px',
+  margin: '10px 0',
+} as const;
 
+const renderEditor = (args: StoryArgs) => {
   // Create an iframe element.
   const iframe = document.createElement('iframe');
   iframe.allow = 'usb; autoplay; camera; microphone;';
@@ -43,13 +50,6 @@ const renderEditor = (args: StoryArgs) => {
   iframe.height = '100%';
 
   const savedProjects: Map<string, Project> = new Map();
-  const toolbarStyles = {
-    fontFamily: 'sans-serif',
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '5px',
-    margin: '10px 0',
-  } as const;
 
   // Create and initialise an instance of MakeCodeFrameDriver.
   const driverRef = new MakeCodeFrameDriver(
@@ -71,19 +71,10 @@ const renderEditor = (args: StoryArgs) => {
     () => iframe
   );
 
-  const waitForElementLoaded = () => {
-    const targetEl = document.getElementById(elementId);
-    if (!targetEl) {
-      window.setTimeout(waitForElementLoaded, 500);
-      return;
-    }
-    targetEl.replaceChildren(iframe);
-    driverRef.initialize();
-  };
-  waitForElementLoaded();
+  driverRef.initialize();
 
   return (
-    <>
+    <HtmlToReactWrapper htmlEl={iframe}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={toolbarStyles}>
           <button onClick={() => driverRef.switchJavascript()}>
@@ -264,18 +255,7 @@ const renderEditor = (args: StoryArgs) => {
           </button>
         </div>
       </div>
-      <div
-        id={elementId}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          height: 700,
-        }}
-      >
-        <p>Loading...</p>
-      </div>
-    </>
+    </HtmlToReactWrapper>
   );
 };
 
