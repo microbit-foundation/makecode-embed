@@ -15,7 +15,7 @@ import { createMakeCodeRenderBlocks } from "@microbit/makecode-embed/vanilla";
 
 const renderer = createMakeCodeRenderBlocks({});
 renderer.initialize();
-const result = await renderer.renderBlocks({ code: defaultMakeCodeProject });
+const result = await renderer.renderBlocks({ code: makeCodeProject });
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -28,7 +28,7 @@ For more examples, take a look at the [MakeCode blocks rendering demo source cod
 
 ## Embed MakeCode editor
 
-Use {@link vanilla.MakeCodeFrameDriver | MakeCodeFrameDriver} class to create a driverRef for an iframe element.
+Use {@link vanilla.MakeCodeFrameDriver | MakeCodeFrameDriver} class to create a driverRef for an iframe element. The iframe element src URL can be generated using {@link vanilla.createMakeCodeURL | createMakeCodeURL}.
 
 ```js
 import {
@@ -42,10 +42,10 @@ const iframe = document.createElement("iframe");
 iframe.allow = "usb; autoplay; camera; microphone;";
 iframe.src = createMakeCodeURL(
   "https://makecode.microbit.org",
-  undefined,
-  undefined,
-  1,
-  undefined
+  undefined, // Version.
+  undefined, // Language.
+  1, // Controller.
+  undefined // Query params.
 );
 iframe.width = "100%";
 iframe.height = "100%";
