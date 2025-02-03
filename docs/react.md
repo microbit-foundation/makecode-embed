@@ -16,10 +16,12 @@ import {
   MakeCodeBlocksRendering,
 } from '@microbit/makecode-embed/react';
 
-<MakeCodeRenderBlocksProvider options={options}>
+<MakeCodeRenderBlocksProvider>
   <MakeCodeBlocksRendering code={project} />
 </MakeCodeRenderBlocksProvider>;
 ```
+
+The provider manages a hidden, embedded MakeCode. If you have more than one code embed then place the provider at a suitable location. You can use the `disabled` prop to avoid loading MakeCode if you know it's not needed.
 
 For more examples, take a look at the [MakeCode blocks rendering demo source code](../src/stories/react/MakeCodeBlocksRendering.stories.tsx).
 

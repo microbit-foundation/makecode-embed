@@ -1,5 +1,4 @@
-import { ReactNode, createContext, useContext } from 'react';
-import { MakeCodeRenderBlocksOptions } from '../vanilla/makecode-render-blocks.js';
+import { ReactNode, createContext, useContext, useMemo } from 'react';
 import useMakeCodeRenderBlocks, {
   UseMakeCodeRenderBlocksReturn,
 } from './useMakeCodeRenderBlocks.js';
@@ -12,12 +11,28 @@ const MakeCodeRenderBlocksContext =
   });
 
 export const MakeCodeRenderBlocksProvider = ({
-  options,
+  disabled,
+  version,
+  lang,
   children,
 }: {
-  options: MakeCodeRenderBlocksOptions;
+  /**
+   * This can be used to disable loading MakeCode in scenarios where it will be unused.
+   */
+  disabled?: boolean;
+  /**
+   * MakeCode version.
+   */
+  version?: string;
+  /**
+   * MakeCode language code.
+   */
+  lang?: string;
   children: ReactNode;
 }) => {
+  const options = useMemo(() => {
+    return { disabled, version, lang };
+  }, [disabled, lang, version]);
   const value = useMakeCodeRenderBlocks(options);
   return (
     <MakeCodeRenderBlocksContext.Provider value={value}>
