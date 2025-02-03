@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 
-const StoryWrapper = (props: { children: ReactNode; id?: string }) => (
+const StoryWrapper = (props: { children: ReactNode }) => (
   <div
-    id={props.id}
     style={{
       display: 'flex',
       flexDirection: 'column',

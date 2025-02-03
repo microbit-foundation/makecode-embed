@@ -13,7 +13,7 @@ Use {@link vanilla.createMakeCodeRenderBlocks | createMakeCodeRenderBlocks} to c
 ```js
 import { createMakeCodeRenderBlocks } from "@microbit/makecode-embed/vanilla";
 
-const renderer = createMakeCodeRenderBlocks({});
+const renderer = createMakeCodeRenderBlocks();
 renderer.initialize();
 const result = await renderer.renderBlocks({ code: makeCodeProject });
 
