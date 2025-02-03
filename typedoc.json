@@ -9,5 +9,6 @@
   "out": "./docs/build",
   "readme": "./README.md",
   "headings": { "readme": false },
-  "customCss": "./docs/custom.css"
+  "customCss": "./docs/custom.css",
+  "excludeExternals": true
 }
