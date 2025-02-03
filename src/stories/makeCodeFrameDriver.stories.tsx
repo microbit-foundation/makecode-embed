@@ -19,7 +19,7 @@ interface StoryArgs {
 }
 
 const meta: Meta<StoryArgs> = {
-  title: 'makeCodeFrameDriver',
+  title: 'stories/makeCodeFrameDriver',
 };
 
 export default meta;
@@ -272,7 +272,9 @@ const renderEditor = (args: StoryArgs) => {
           width: '100%',
           height: 700,
         }}
-      />
+      >
+        <p>Loading...</p>
+      </div>
     </>
   );
 };

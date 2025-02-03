@@ -21,7 +21,7 @@ interface StoryArgs {
 }
 
 const meta: Meta<StoryArgs> = {
-  title: 'createMakeCodeRenderBlocks',
+  title: 'stories/createMakeCodeRenderBlocks',
 };
 
 export default meta;
@@ -49,7 +49,11 @@ const renderBlocks = (args: StoryArgs) => {
     });
   };
   waitForElementLoaded();
-  return <div id={elementId}></div>;
+  return (
+    <div id={elementId}>
+      <p>Loading...</p>
+    </div>
+  );
 };
 
 export const Simple: Story = {

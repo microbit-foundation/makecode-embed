@@ -8,7 +8,7 @@ title: VanillaJS Usage
 
 ## Blocks rendering
 
-Use {@link vanilla.createMakeCodeRenderBlocks | createMakeCodeRenderBlocks} to create a MakeCode block renderer. Initialise the renderer before calling `renderBlocks` with a {@link vanilla.RenderBlocksRequest | RenderBlocksRequest}, which includes a MakeCode project ([see examples](../src/vanilla/examples.ts)). The function will return a {@link vanilla.RenderBlocksResponse | RenderBlocksResponse}.
+Use {@link vanilla.createMakeCodeRenderBlocks | createMakeCodeRenderBlocks} to create a MakeCode block renderer. Initialise the renderer before calling `renderBlocks` with a {@link vanilla.RenderBlocksRequest | RenderBlocksRequest}, which includes a MakeCode project ([see examples](../src/stories/fixtures.ts)). The function will return a {@link vanilla.RenderBlocksResponse | RenderBlocksResponse}.
 
 ```js
 import { createMakeCodeRenderBlocks } from "@microbit/makecode-embed/vanilla";
