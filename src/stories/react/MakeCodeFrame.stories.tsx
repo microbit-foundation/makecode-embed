@@ -6,7 +6,7 @@ import {
   default as MakeCodeFrame,
   MakeCodeFrameProps,
 } from '../../react/MakeCodeFrame.js';
-import { Project } from '../../vanilla/pxt.js';
+import { MakeCodeProject } from '../../vanilla/pxt.js';
 import { controllerId } from '../config.js';
 import StoryWrapper from '../StoryWrapper.js';
 import MakeCodeToolbar from '../MakeCodeToolbar.js';
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof MakeCodeFrame>;
 const MakeCodeEditorWithControls = (
   props: Omit<MakeCodeFrameProps, 'initialProjects'>
 ) => {
-  const savedProjects = useRef<Map<string, Project>>(new Map());
+  const savedProjects = useRef<Map<string, MakeCodeProject>>(new Map());
   const ref = useRef<MakeCodeFrameDriver>(null);
   const initialProjects = useCallback(async () => {
     if (savedProjects.current.size === 0) {

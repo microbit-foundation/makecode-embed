@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { ReactNode, useState } from 'react';
 import MakeCodeBlocksRendering from '../../react/MakeCodeBlocksRendering.js';
 import { MakeCodeRenderBlocksProvider } from '../../react/MakeCodeRenderBlocksProvider.js';
-import { BlockLayout, Project } from '../../vanilla/pxt.js';
+import { BlockLayout, MakeCodeProject } from '../../vanilla/pxt.js';
 import {
   initialProject,
   project,
@@ -190,7 +190,7 @@ export const Robust: Story = {
     return (
       <StoryWrapper key={version}>
         <MakeCodeRenderBlocksProvider version={adaptStorybookVersion(version)}>
-          <MakeCodeBlocksRendering code={{} as Project} />
+          <MakeCodeBlocksRendering code={{} as MakeCodeProject} />
         </MakeCodeRenderBlocksProvider>
       </StoryWrapper>
     );
@@ -229,7 +229,7 @@ export const EmptyToBlocksTransition: Story = {
   name: 'Empty to blocks transition',
   render: (args) => {
     const { version } = args;
-    const [project, setProject] = useState<Project>(initialProject);
+    const [project, setProject] = useState<MakeCodeProject>(initialProject);
     return (
       <StoryWrapper key={version}>
         <div style={{ display: 'grid', gridTemplateColumns: '50% 50%' }}>

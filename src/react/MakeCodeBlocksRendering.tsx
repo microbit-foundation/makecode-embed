@@ -4,11 +4,11 @@
  */
 import React, { useState, useEffect, ReactNode } from 'react';
 import { useMakeCodeRenderBlocksContext } from './MakeCodeRenderBlocksProvider.js';
-import { BlockLayout, Project } from '../vanilla/pxt.js';
+import { BlockLayout, MakeCodeProject } from '../vanilla/pxt.js';
 
 export interface MakeCodeBlocksRenderingProps {
   className?: string;
-  code?: string | Project;
+  code?: string | MakeCodeProject;
   packageId?: string;
   package?: string;
   snippetMode?: boolean;

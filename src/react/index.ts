@@ -42,7 +42,7 @@ export type {
   ImportProjectOptions,
   InfoMessage,
   LanguageRestriction,
-  Project,
+  MakeCodeProject,
   ProjectCreationOptions,
   ProjectFilters,
   RenderBlocksOptions,

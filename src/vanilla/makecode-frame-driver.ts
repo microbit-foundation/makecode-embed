@@ -29,7 +29,7 @@ import {
   ImportProjectOptions,
   InfoMessage,
   LanguageRestriction,
-  Project,
+  MakeCodeProject,
   ProjectCreationOptions,
   ProjectFilters,
   RenderBlocksOptions,
@@ -64,7 +64,7 @@ export interface Options {
    * The projects will receive updates via `onWorkspaceSave` and should be stored keyed by header
    * id.
    */
-  initialProjects: () => Promise<Project[]>;
+  initialProjects: () => Promise<MakeCodeProject[]>;
 
   /**
    * Set this to a value representing your app.

@@ -13,12 +13,12 @@ import {
   projectWithMelody,
   projectWithTwoExtensions,
 } from '../fixtures.js';
-import { Project } from '../../vanilla/pxt.js';
+import { MakeCodeProject } from '../../vanilla/pxt.js';
 import StoryWrapper from '../StoryWrapper.js';
 
 interface StoryArgs {
   options: MakeCodeRenderBlocksOptions | undefined;
-  project: Project;
+  project: MakeCodeProject;
 }
 
 const meta: Meta<StoryArgs> = {

@@ -1,7 +1,7 @@
 import { MutableRefObject, RefObject } from 'react';
 import { MakeCodeFrameDriver } from '../vanilla/makecode-frame-driver.js';
 import { defaultMakeCodeProject } from '../vanilla/examples.js';
-import { Project } from '../vanilla/pxt.js';
+import { MakeCodeProject } from '../vanilla/pxt.js';
 
 const toolbarRowStyle = {
   fontFamily: 'sans-serif',
@@ -16,7 +16,7 @@ const MakeCodeToolbar = ({
   savedProjects,
 }: {
   driver: RefObject<MakeCodeFrameDriver>;
-  savedProjects: MutableRefObject<Map<string, Project>>;
+  savedProjects: MutableRefObject<Map<string, MakeCodeProject>>;
 }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -2,7 +2,7 @@
  * MakeCode handling that does not depend on React.
  */
 
-import { BlockLayout, Project } from './pxt.js';
+import { BlockLayout, MakeCodeProject } from './pxt.js';
 
 const disposedMessage = 'Disposed';
 const makecodeFailedToLoadMessage = 'Failed to load MakeCode to render blocks.';
@@ -22,7 +22,7 @@ export interface MakeCodeRenderBlocksReturn {
 }
 
 export interface RenderBlocksRequest {
-  code: string | Project;
+  code: string | MakeCodeProject;
   options?: {
     packageId?: string;
     package?: string;
@@ -68,7 +68,7 @@ interface RenderBlocksResponseMessage {
 type RequestInputType = 'text' | 'blocks';
 
 interface RenderBlocksRequestResponse {
-  input: Project | string;
+  input: MakeCodeProject | string;
   sent: boolean;
   type: RequestInputType;
   req: RenderBlocksRequestMessage;
@@ -129,7 +129,7 @@ export const createMakeCodeRenderBlocks = (
   };
 
   const findBestCode = (
-    code: string | Project,
+    code: string | MakeCodeProject,
     ignoreBlocks?: boolean
   ): { type: RequestInputType; code: string } => {
     if (typeof code === 'string') {

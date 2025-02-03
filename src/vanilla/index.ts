@@ -38,7 +38,7 @@ export type {
   LanguageRestriction,
   PackageConfig,
   PackageExtension,
-  Project,
+  MakeCodeProject,
   ProjectCreationOptions,
   ProjectFilters,
   ProjectTemplate,

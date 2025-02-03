@@ -16,7 +16,7 @@ import {
   EditorMessageTutorialEventRequest,
   EditorWorkspaceSaveRequest,
   EditorWorkspaceSyncRequest,
-  Project,
+  MakeCodeProject,
   ProjectFilters,
 } from '../vanilla/pxt.js';
 
@@ -38,7 +38,7 @@ export interface MakeCodeFrameProps
   // https://github.com/microsoft/pxt-microbit/blob/master/pxtarget.json#L605C6-L605C14
   queryParams?: Record<string, string>;
 
-  initialProjects: () => Promise<Project[]>;
+  initialProjects: () => Promise<MakeCodeProject[]>;
 
   controllerId?: string;
   filters?: ProjectFilters;

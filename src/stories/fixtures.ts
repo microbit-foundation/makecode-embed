@@ -1,4 +1,4 @@
-import { Project } from '../vanilla/pxt.js';
+import { MakeCodeProject } from '../vanilla/pxt.js';
 
 export const project = {
   text: {
@@ -9,7 +9,7 @@ export const project = {
     'pxt.json':
       '{\n    "name": "Untitled",\n    "dependencies": {\n        "core": "*"\n , "radio": "*"\n   },\n    "description": "",\n    "files": [\n        "main.blocks",\n        "main.ts",\n        "README.md"\n    ]\n}',
   },
-} as Project;
+} as MakeCodeProject;
 
 export const projectWithLayout = {
   text: {
@@ -63,9 +63,9 @@ export const projectWithLayout = {
     </block>
   </xml>`,
   },
-} as Project;
+} as MakeCodeProject;
 
-export const projectWithExtensionBlock: Project = {
+export const projectWithExtensionBlock: MakeCodeProject = {
   text: {
     'README.md': '',
     'main.blocks':
@@ -136,7 +136,7 @@ export const initialProject = {
   },
 };
 
-export const projectWithCustomBlock: Project = {
+export const projectWithCustomBlock: MakeCodeProject = {
   text: {
     'README.md': '',
     'custom.ts':
@@ -149,7 +149,7 @@ export const projectWithCustomBlock: Project = {
   },
 };
 
-export const projectWithUserLayout: Project = {
+export const projectWithUserLayout: MakeCodeProject = {
   text: {
     'README.md': '',
     'main.blocks':

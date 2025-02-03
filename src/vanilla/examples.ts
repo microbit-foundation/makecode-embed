@@ -1,6 +1,6 @@
-import { Project } from './pxt.js';
+import { MakeCodeProject } from './pxt.js';
 
-export const defaultMakeCodeProject: Project = {
+export const defaultMakeCodeProject: MakeCodeProject = {
   text: {
     'main.blocks':
       '<xml xmlns="http://www.w3.org/1999/xhtml">\n  <block type="pxt-on-start" id=",{,HjW]u:lVGcDRS_Cu|" x="-247" y="113"></block>\n</xml>',
@@ -11,7 +11,7 @@ export const defaultMakeCodeProject: Project = {
   },
 };
 
-export const emptyMakeCodeProject: Project = {
+export const emptyMakeCodeProject: MakeCodeProject = {
   text: {
     'main.blocks':
       '<xml xmlns="http://www.w3.org/1999/xhtml">\n  <variables></variables>\n</xml>',

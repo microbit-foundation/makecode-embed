@@ -86,7 +86,7 @@ export interface Header extends InstallHeader {
 
 export type ScriptText = Record<string, string>;
 
-export interface Project {
+export interface MakeCodeProject {
   header?: Header;
   text?: ScriptText;
 }
@@ -333,7 +333,7 @@ export interface EditorWorkspaceSyncResponse extends EditorMessageResponse {
   /*
    * Full list of project, required for init
    */
-  projects: Project[];
+  projects: MakeCodeProject[];
   // (optional) filtering argument
   editor?: EditorSyncState;
   // (optional) controller id, used for determining what the parent controller is
@@ -345,12 +345,12 @@ export interface EditorWorkspaceSaveRequest extends EditorMessageRequest {
   /*
    * Modified project
    */
-  project: Project;
+  project: MakeCodeProject;
 }
 
 export interface ImportProjectOptions {
   // project to load
-  project: Project;
+  project: MakeCodeProject;
   // (optional) filtering argument
   filters?: ProjectFilters;
   searchBar?: boolean;
@@ -364,7 +364,7 @@ export interface EditorMessageImportProjectRequest
 
 export interface ImportExternalProjectOptions {
   // project to load
-  project: Project;
+  project: MakeCodeProject;
 }
 
 export interface EditorMessageImportExternalProjectRequest

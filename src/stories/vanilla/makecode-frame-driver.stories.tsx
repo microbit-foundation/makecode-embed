@@ -6,7 +6,7 @@ import {
   MakeCodeFrameDriver,
   Options,
 } from '../../vanilla/makecode-frame-driver.js';
-import { Project } from '../../vanilla/pxt.js';
+import { MakeCodeProject } from '../../vanilla/pxt.js';
 import MakeCodeToolbar from '../MakeCodeToolbar.js';
 import StoryWrapper from '../StoryWrapper.js';
 
@@ -17,7 +17,7 @@ interface StoryArgs {
     controller?: 1 | 2;
     queryParams?: Record<string, string>;
   };
-  project?: Project;
+  project?: MakeCodeProject;
   callbacks?: Partial<Options>;
 }
 
@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryObj<StoryArgs>;
 
 const renderEditor = (args: StoryArgs) => {
-  const savedProjects = useRef<Map<string, Project>>(new Map());
+  const savedProjects = useRef<Map<string, MakeCodeProject>>(new Map());
   const ref = useRef<MakeCodeFrameDriver | null>(null);
   const cbRef = (div: HTMLElement | null) => {
     if (!div) {
@@ -50,7 +50,7 @@ const renderEditor = (args: StoryArgs) => {
     iframe.height = '100%';
     div.appendChild(iframe);
 
-    const savedProjects: Map<string, Project> = new Map();
+    const savedProjects: Map<string, MakeCodeProject> = new Map();
 
     // Create and initialise an instance of MakeCodeFrameDriver.
     ref.current = new MakeCodeFrameDriver(
