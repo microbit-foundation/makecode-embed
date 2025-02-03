@@ -32,7 +32,6 @@ Use {@link vanilla.MakeCodeFrameDriver | MakeCodeFrameDriver} class to create a 
 
 ```js
 import {
-  Project,
   MakeCodeFrameDriver,
   createMakeCodeURL,
 } from "@microbit/makecode-embed/vanilla";
