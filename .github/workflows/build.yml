@@ -31,19 +31,3 @@ jobs:
         if: github.event_name == 'release' && github.event.action == 'created'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  deploy:
-    # https://github.com/actions/deploy-pages
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    needs: build
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
