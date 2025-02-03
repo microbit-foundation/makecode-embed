@@ -14,7 +14,7 @@ import {
   projectWithTwoExtensions,
 } from './fixtures.js';
 import { Project } from '../vanilla/pxt.js';
-import { HtmlToReactWrapper } from './HtmlToReactWrapper.js';
+import StoryWrapper from './StoryWrapper.js';
 
 interface StoryArgs {
   options: MakeCodeRenderBlocksOptions | undefined;
@@ -29,25 +29,29 @@ export default meta;
 
 type Story = StoryObj<StoryArgs>;
 
-const createMakeCodeBlockHTMLElement = (args: StoryArgs): HTMLElement => {
-  const renderer = createMakeCodeRenderBlocks(args.options ?? {});
-  renderer.initialize();
-  const div = document.createElement('div');
-  renderer.renderBlocks({ code: args.project }).then((r) => {
-    if (r.svg) {
-      div.innerHTML = `
-      <div>
-        ${r.svg}
-      </div>
-    `;
+const renderBlocks = (args: StoryArgs) => {
+  const cbRef = (e: HTMLElement | null) => {
+    if (!e) {
+      return;
     }
-  });
-  return div;
+    const renderer = createMakeCodeRenderBlocks(args.options ?? {});
+    renderer.initialize();
+    renderer.renderBlocks({ code: args.project }).then((r) => {
+      if (r.svg) {
+        e.innerHTML = `
+        <div>
+          ${r.svg}
+        </div>
+      `;
+      }
+    });
+  };
+  return (
+    <StoryWrapper>
+      <div ref={cbRef}>Loading...</div>
+    </StoryWrapper>
+  );
 };
-
-const renderBlocks = (args: StoryArgs) => (
-  <HtmlToReactWrapper htmlEl={createMakeCodeBlockHTMLElement(args)} />
-);
 
 export const Simple: Story = {
   render: renderBlocks,
