@@ -15,37 +15,37 @@
     "node": ">=20",
     "npm": ">=10"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "typings": "./dist/esm/index.d.ts",
+  "main": "./dist/cjs/react/index.js",
+  "module": "./dist/esm/react/index.js",
+  "typings": "./dist/esm/react/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/esm/index.d.js",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/esm/react/index.d.ts",
+        "default": "./dist/esm/react/index.js"
       },
       "require": {
-        "types": "./dist/cjs/index.d.js",
-        "default": "./dist/cjs/index.js"
+        "types": "./dist/cjs/react/index.d.ts",
+        "default": "./dist/cjs/react/index.js"
       }
     },
     "./vanilla": {
       "import": {
-        "types": "./dist/esm/vanilla/index.d.js",
+        "types": "./dist/esm/vanilla/index.d.ts",
         "default": "./dist/esm/vanilla/index.js"
       },
       "require": {
-        "types": "./dist/cjs/vanilla/index.d.js",
+        "types": "./dist/cjs/vanilla/index.d.ts",
         "default": "./dist/cjs/vanilla/index.js"
       }
     },
     "./react": {
       "import": {
-        "types": "./dist/esm/react/index.d.js",
+        "types": "./dist/esm/react/index.d.ts",
         "default": "./dist/esm/react/index.js"
       },
       "require": {
-        "types": "./dist/cjs/react/index.d.js",
+        "types": "./dist/cjs/react/index.d.ts",
         "default": "./dist/cjs/react/index.js"
       }
     }
