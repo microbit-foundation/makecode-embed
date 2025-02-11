@@ -7,11 +7,10 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "sourceMap": true,
     "declaration": true,
     "jsx": "react-jsx",
@@ -23,5 +22,5 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["./src"]
 }

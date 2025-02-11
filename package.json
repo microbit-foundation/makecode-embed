@@ -15,19 +15,46 @@
     "node": ">=20",
     "npm": ">=10"
   },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "./dist/esm/index.d.ts",
   "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.js",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.js",
+        "default": "./dist/cjs/index.js"
+      }
+    },
     "./vanilla": {
-      "import": "./dist/vanilla/index.js",
-      "types": "./dist/vanilla/index.d.ts"
+      "import": {
+        "types": "./dist/esm/vanilla/index.d.js",
+        "default": "./dist/esm/vanilla/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/vanilla/index.d.js",
+        "default": "./dist/cjs/vanilla/index.js"
+      }
     },
     "./react": {
-      "import": "./dist/react/index.js",
-      "types": "./dist/react/index.d.ts"
+      "import": {
+        "types": "./dist/esm/react/index.d.js",
+        "default": "./dist/esm/react/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/react/index.d.js",
+        "default": "./dist/cjs/react/index.js"
+      }
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc",
+    "build:esm": "tsc -p tsconfig.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "build": "npm run build:esm && npm run build:cjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "ci": "npm run lint && npm run build && npm run build:storybook",
     "storybook": "storybook dev -p 6006",
