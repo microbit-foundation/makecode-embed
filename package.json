@@ -15,18 +15,18 @@
     "node": ">=20",
     "npm": ">=10"
   },
-  "main": "./dist/cjs/react/index.js",
-  "module": "./dist/esm/react/index.js",
-  "typings": "./dist/esm/react/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "./dist/esm/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/esm/react/index.d.ts",
-        "default": "./dist/esm/react/index.js"
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
       },
       "require": {
-        "types": "./dist/cjs/react/index.d.ts",
-        "default": "./dist/cjs/react/index.js"
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
       }
     },
     "./vanilla": {
