@@ -19,6 +19,16 @@
   "module": "./dist/esm/react/index.js",
   "typings": "./dist/esm/react/index.d.ts",
   "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/react/index.d.ts",
+        "default": "./dist/esm/react/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/react/index.d.ts",
+        "default": "./dist/cjs/react/index.js"
+      }
+    },
     "./vanilla": {
       "import": {
         "types": "./dist/esm/vanilla/index.d.ts",
