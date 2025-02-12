@@ -56,7 +56,6 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@microbit/makecode-embed": "file:microbit-makecode-embed-0.0.0.tgz",
     "tslib": ">=2.0.0"
   },
   "devDependencies": {
