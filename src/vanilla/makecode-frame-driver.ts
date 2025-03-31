@@ -369,10 +369,10 @@ export class MakeCodeFrameDriver {
           ...event,
           success: true,
           projects,
+          controllerId,
           editor: {
             filters,
             searchBar,
-            controllerId,
           },
         } as EditorWorkspaceSyncResponse);
       } else if (event.action === 'workspacesave') {
