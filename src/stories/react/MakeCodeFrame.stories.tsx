@@ -82,6 +82,24 @@ export const MakeCodeEditorWithControlsStory: Story = {
   },
 };
 
+export const MakeCodeEditorWithoutLangPickerStory: Story = {
+  name: 'MakeCode Editor without language picker',
+  args: {
+    version: 'default',
+  },
+  render: (args) => {
+    const { version } = args;
+    return (
+      <StoryWrapper>
+        <MakeCodeEditorWithControls
+          version={version === 'default' ? undefined : version}
+          hideLanguage
+        />
+      </StoryWrapper>
+    );
+  },
+};
+
 export const MakeCodeEditorControllerAppModeStory: Story = {
   name: 'MakeCode Editor with controller=2 mode',
   args: {

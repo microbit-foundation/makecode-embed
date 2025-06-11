@@ -34,6 +34,7 @@ export interface MakeCodeFrameProps
   version?: string;
   lang?: string;
   controller?: 1 | 2;
+  hideLanguage?: boolean;
   // You can use these to specify query variants or other options not directly supported by this component
   // https://github.com/microsoft/pxt-microbit/blob/master/pxtarget.json#L605C6-L605C14
   queryParams?: Record<string, string>;
@@ -72,6 +73,7 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
       version,
       lang,
       controller,
+      hideLanguage,
       queryParams,
 
       initialProjects,
@@ -136,6 +138,7 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
       version,
       lang,
       controller,
+      hideLanguage,
       queryParams
     );
     return (

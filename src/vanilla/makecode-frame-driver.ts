@@ -806,6 +806,7 @@ export const createMakeCodeURL = (
   version: string | undefined,
   lang: string | undefined,
   controller: number | undefined,
+  hideLanguage: boolean | undefined,
   queryParams: Record<string, string> | undefined
 ): string => {
   const url = new URL(
@@ -816,6 +817,9 @@ export const createMakeCodeURL = (
   }
   if (controller) {
     url.searchParams.set('controller', controller.toString());
+  }
+  if (hideLanguage) {
+    url.searchParams.set('hideLanguage', '1')
   }
   if (queryParams) {
     for (const [k, v] of Object.entries(queryParams)) {

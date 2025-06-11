@@ -15,6 +15,7 @@ interface StoryArgs {
     version?: string;
     lang?: string;
     controller?: 1 | 2;
+    hideLanguage?: boolean;
     queryParams?: Record<string, string>;
   };
   project?: MakeCodeProject;
@@ -44,6 +45,7 @@ const renderEditor = (args: StoryArgs) => {
       args.options?.version === 'default' ? undefined : args.options?.version,
       args.options?.lang,
       args.options?.controller ?? 1,
+      args.options?.hideLanguage,
       args.options?.queryParams
     );
     iframe.width = '100%';
@@ -88,6 +90,15 @@ export const MakeCodeEditorWithControlsStory: Story = {
   render: renderEditor,
   args: {
     options: { version: 'default', queryParams: { hideMenu: '' } },
+    project: defaultMakeCodeProject,
+  },
+};
+
+export const MakeCodeEditorWithoutLangPickerStory: Story = {
+  name: 'MakeCode Editor without language picker',
+  render: renderEditor,
+  args: {
+    options: { version: 'default', hideLanguage: true },
     project: defaultMakeCodeProject,
   },
 };
