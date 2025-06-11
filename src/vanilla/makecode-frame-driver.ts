@@ -819,7 +819,7 @@ export const createMakeCodeURL = (
     url.searchParams.set('controller', controller.toString());
   }
   if (hideLanguage) {
-    url.searchParams.set('hideLanguage', '1')
+    url.searchParams.set('hidelanguage', '1')
   }
   if (queryParams) {
     for (const [k, v] of Object.entries(queryParams)) {
