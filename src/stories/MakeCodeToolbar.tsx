@@ -104,12 +104,16 @@ const MakeCodeToolbar = ({
         <button onClick={() => driver.current!.toggleDebugSloMo()}>
           Toggle debug slow mo
         </button>
+        <button onClick={() => driver.current!.toggleKeyboardControls()}>
+          Keyboard controls
+        </button>
         <button onClick={() => driver.current!.toggleGreenScreen()}>
           Green screen
         </button>
         <button onClick={() => driver.current!.toggleHighContrast()}>
           Contrast
         </button>
+        <button onClick={() => driver.current!.showThemePicker()}>Theme</button>
         <button onClick={() => driver.current!.closeFlyout()}>
           Close flyout
         </button>

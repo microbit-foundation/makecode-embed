@@ -180,9 +180,11 @@ export interface EditorMessageRequest extends EditorMessage {
     | 'setlanguagerestriction'
     | 'gettoolboxcategories'
     | 'toggletrace' // EditorMessageToggleTraceRequest
+    | 'showthemepicker'
     | 'togglehighcontrast'
     | 'sethighcontrast' // EditorMessageSetHighContrastRequest
     | 'togglegreenscreen'
+    | 'togglekeyboardcontrols'
     | 'settracestate' //
     | 'setsimulatorfullscreen' // EditorMessageSimulatorFullScreenRequest
     | 'print' // print code
@@ -542,6 +544,7 @@ export interface InfoMessage {
   versions: TargetVersions;
   locale: string;
   availableLocales?: string[];
+  keyboardControls: boolean;
 }
 
 export interface PackageExtensionData {

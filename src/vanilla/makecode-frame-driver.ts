@@ -734,6 +734,13 @@ export class MakeCodeFrameDriver {
     });
   }
 
+  async showThemePicker(): Promise<void> {
+    await this.sendRequest({
+      type: 'pxteditor',
+      action: 'showthemepicker',
+    });
+  }
+
   async toggleHighContrast(): Promise<void> {
     await this.sendRequest({
       type: 'pxteditor',
@@ -747,6 +754,13 @@ export class MakeCodeFrameDriver {
       action: 'sethighcontrast',
       on,
     } as EditorMessageSetHighContrastRequest);
+  }
+
+  async toggleKeyboardControls(): Promise<void> {
+    await this.sendRequest({
+      type: 'pxteditor',
+      action: 'togglekeyboardcontrols',
+    });
   }
 
   async toggleGreenScreen(): Promise<void> {
