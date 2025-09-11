@@ -13,6 +13,7 @@ export interface MakeCodeRenderBlocksOptions {
   disabled?: boolean;
   version?: string;
   lang?: string;
+  baseUrl?: string;
 }
 
 export interface MakeCodeRenderBlocksReturn {
@@ -86,7 +87,7 @@ export const createMakeCodeRenderBlocks = (
   const defaultedOptions: MakeCodeRenderBlocksOptions = {
     ...options,
   };
-  const makecodeOrigin = 'https://makecode.microbit.org';
+  const makecodeOrigin = options.baseUrl ?? 'https://makecode.microbit.org';
 
   let iframe: HTMLIFrameElement | undefined;
   let status: MakeCodeState = 'loading';
@@ -290,11 +291,12 @@ function defaultPackageFromDependencies(
 
 function createIframe(
   makecodeOrigin: string,
-  { lang, version }: MakeCodeRenderBlocksOptions
+  { lang, version, baseUrl }: MakeCodeRenderBlocksOptions
 ): HTMLIFrameElement {
   const query = `?render=1${lang ? `&lang=${encodeURIComponent(lang)}` : ''}`;
-  const src =
-    [makecodeOrigin, version, '--docs'].filter(Boolean).join('/') + query;
+  const src = baseUrl
+    ? makecodeOrigin + query
+    : [makecodeOrigin, version, '--docs'].filter(Boolean).join('/') + query;
   const f = document.createElement('iframe');
   f.style.position = 'absolute';
   f.style.width = '1px';

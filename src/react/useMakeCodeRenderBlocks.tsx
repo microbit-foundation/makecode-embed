@@ -14,10 +14,10 @@ export interface UseMakeCodeRenderBlocksReturn {
 const useMakeCodeRenderBlocks = (
   options: MakeCodeRenderBlocksOptions
 ): UseMakeCodeRenderBlocksReturn => {
-  const { disabled, lang, version } = options;
+  const { disabled, lang, version, baseUrl } = options;
   const memoizedOptions = useMemo(() => {
-    return { disabled, lang, version };
-  }, [disabled, lang, version]);
+    return { disabled, lang, version, baseUrl };
+  }, [disabled, lang, version, baseUrl]);
   const returnValue = useMemo<MakeCodeRenderBlocksReturn>(
     () => createMakeCodeRenderBlocks(memoizedOptions),
     [memoizedOptions]

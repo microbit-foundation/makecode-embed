@@ -14,6 +14,7 @@ export const MakeCodeRenderBlocksProvider = ({
   disabled,
   version,
   lang,
+  baseUrl,
   children,
 }: {
   /**
@@ -28,11 +29,15 @@ export const MakeCodeRenderBlocksProvider = ({
    * MakeCode language code.
    */
   lang?: string;
+  /**
+   * MakeCode base URL for renderer.
+   */
+  baseUrl?: string;
   children: ReactNode;
 }) => {
   const options = useMemo(() => {
-    return { disabled, version, lang };
-  }, [disabled, lang, version]);
+    return { disabled, version, lang, baseUrl };
+  }, [disabled, lang, version, baseUrl]);
   const value = useMakeCodeRenderBlocks(options);
   return (
     <MakeCodeRenderBlocksContext.Provider value={value}>
