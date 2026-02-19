@@ -836,5 +836,7 @@ export const createMakeCodeURL = (
       url.searchParams.set(k, v);
     }
   }
+  // This avoids a navigation which will pollute the history of the embedding page.
+  url.hash = 'editor';
   return url.toString();
 };
