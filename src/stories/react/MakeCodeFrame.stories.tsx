@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useCallback, useRef } from 'react';
-import { defaultMakeCodeProject } from '../../vanilla/examples.js';
-import { MakeCodeFrameDriver } from '../../vanilla/makecode-frame-driver.js';
 import {
   default as MakeCodeFrame,
   MakeCodeFrameProps,
 } from '../../react/MakeCodeFrame.js';
+import { defaultMakeCodeProject } from '../../vanilla/examples.js';
+import { MakeCodeFrameDriver } from '../../vanilla/makecode-frame-driver.js';
 import { MakeCodeProject } from '../../vanilla/pxt.js';
 import { controllerId } from '../config.js';
-import StoryWrapper from '../StoryWrapper.js';
 import MakeCodeToolbar from '../MakeCodeToolbar.js';
+import StoryWrapper from '../StoryWrapper.js';
 
 const meta: Meta<typeof MakeCodeFrame> = {
   title: 'stories/React/MakeCodeFrame',
@@ -44,6 +44,7 @@ const MakeCodeEditorWithControls = (
       <MakeCodeToolbar savedProjects={savedProjects} driver={ref} />
       <MakeCodeFrame
         ref={ref}
+        baseUrl="https://flag-keyboardcontrols.review-pxt.pages.dev?keyboardcontrols=1"
         controller={1}
         controllerId={controllerId}
         initialProjects={initialProjects}
