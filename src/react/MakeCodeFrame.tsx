@@ -46,8 +46,10 @@ export interface MakeCodeFrameProps
 
   onDownload?: (download: { name: string; hex: string }) => void;
   onSave?: (save: { name: string; hex: string }) => void;
+  onLoadError?: () => void;
   onBack?: () => void;
   onBackLongPress?: () => void;
+  startUpTimeout?: number;
 
   onEditorContentLoaded?(event: EditorContentLoadedRequest): void;
   onWorkspaceLoaded?(event: EditorWorkspaceSyncRequest): void;
@@ -81,8 +83,10 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
 
       onDownload,
       onSave,
+      onLoadError,
       onBack,
       onBackLongPress,
+      startUpTimeout,
       onEditorContentLoaded,
       onWorkspaceLoaded,
       onWorkspaceSync,
@@ -102,8 +106,10 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
 
         onDownload,
         onSave,
+        onLoadError,
         onBack,
         onBackLongPress,
+        startUpTimeout,
         onEditorContentLoaded,
         onWorkspaceLoaded,
         onWorkspaceSync,
@@ -120,6 +126,7 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
       onBackLongPress,
       onDownload,
       onEditorContentLoaded,
+      onLoadError,
       onSave,
       onTutorialEvent,
       onWorkspaceEvent,
@@ -128,6 +135,7 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
       onWorkspaceSave,
       onWorkspaceSync,
       searchBar,
+      startUpTimeout,
     ]);
 
     // Reload MakeCode if the URL changes
@@ -184,6 +192,7 @@ const MakeCodeFrameInner = forwardRef<
       title="MakeCode"
       style={{ ...styles.iframe, ...style }}
       allow="usb; autoplay; camera; microphone;"
+      onError={() => driverRef.current.notifyLoadError()}
       {...rest}
     />
   );
