@@ -14,6 +14,7 @@ export interface MakeCodeBlocksRenderingProps {
   snippetMode?: boolean;
   layout?: BlockLayout;
   loaderCmp?: React.ReactNode;
+  alt?: string;
 }
 
 export interface MakeCodeBlocksRenderingState {
@@ -32,6 +33,7 @@ const MakeCodeBlocksRendering = ({
   layout,
   code,
   className,
+  alt,
 }: MakeCodeBlocksRenderingProps) => {
   const [state, setState] = useState<MakeCodeBlocksRenderingState>({
     rendering: true,
@@ -95,9 +97,10 @@ const MakeCodeBlocksRendering = ({
       <img
         className="ui image"
         alt={
-          code === undefined || typeof code === 'string'
+          alt ??
+          (code === undefined || typeof code === 'string'
             ? code
-            : code.text!['main.ts']
+            : code.text!['main.ts'])
         }
         src={uri}
         width={width}
