@@ -28,6 +28,6 @@ jobs:
         with:
           path: ./storybook-static
       - run: npm publish
-        if: github.event_name == 'release' && github.event.action == 'created'
+        #if: github.event_name == 'release' && github.event.action == 'created'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
