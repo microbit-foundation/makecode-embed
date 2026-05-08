@@ -189,6 +189,23 @@ export class MakeCodeFrameDriver {
       return;
     }
 
+    // The 'newproject' host message (sent when started with noproject=1) currently arrives
+    // without a 'type' field — every other postHostMessageAsync call site in MakeCode sets
+    // type: 'pxthost' but app.tsx:6519 doesn't. Match on action and tolerate either shape so
+    // we keep working if upstream is fixed.
+    // Treat it as a readiness signal so the import reply can flush the queue without waiting
+    // for editorcontentloaded (which itself only fires after a project loads).
+    if (
+      data.action === 'newproject' &&
+      (!data.type || data.type === 'pxthost')
+    ) {
+      this.ready = true;
+      this.messageQueue.forEach((m) => this.sendMessageNoReadyCheck(m));
+      this.messageQueue.length = 0;
+      this.handleNewProjectRequest();
+      return;
+    }
+
     // I think 'editorcontentloaded' isn't useful here in controller scenarios but needs confirming.
     // Might be the right option when waiting to render blocks or similar?
     if (
@@ -355,6 +372,30 @@ export class MakeCodeFrameDriver {
   private sendMessageNoReadyCheck = (message: unknown) => {
     this.iframe()?.contentWindow?.postMessage(message, '*');
   };
+
+  private async handleNewProjectRequest() {
+    try {
+      const projects = await this.options.initialProjects();
+      if (projects.length > 0) {
+        const { filters, searchBar } = this.options;
+        this.sendMessageNoReadyCheck({
+          type: 'pxteditor',
+          action: 'importproject',
+          project: projects[0],
+          filters,
+          searchBar,
+        } as EditorMessageImportProjectRequest);
+      } else {
+        this.sendMessageNoReadyCheck({
+          type: 'pxteditor',
+          action: 'newproject',
+          options: { preferredEditor: 'blocksprj' },
+        } as EditorMessageNewProjectRequest);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   private async handleWorkspaceSync(
     event: EditorWorkspaceSyncRequest | EditorWorkspaceSaveRequest
@@ -830,6 +871,15 @@ export const createMakeCodeURL = (
   }
   if (controller) {
     url.searchParams.set('controller', controller.toString());
+    // TEMPORARY: skip MakeCode's racy auto-default-project step. The driver
+    // responds to the resulting 'newproject' host message by importing
+    // initialProjects()[0]. Workaround for the race fixed by
+    // https://github.com/microsoft/pxt/commit/50486a92c909a56c1270a9c549aa483bbe1d74bd
+    // (issue https://github.com/microsoft/pxt-microbit/issues/6081). Trades
+    // the race for a brief loading-dimmer flash, so REMOVE this and the
+    // associated 'newproject' handler once that fix is live in the deployed
+    // MakeCode.
+    url.searchParams.set('noproject', '1');
   }
   if (queryParams) {
     for (const [k, v] of Object.entries(queryParams)) {
