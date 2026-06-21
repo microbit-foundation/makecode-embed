@@ -22,6 +22,8 @@ export {
 export {
   MakeCodeFrameDriver,
   createMakeCodeURL,
+  type StartUpFailure,
+  type StartUpResult,
 } from '../vanilla/makecode-frame-driver.js';
 
 export { BlockLayout } from '../vanilla/pxt.js';

@@ -55,6 +55,18 @@ export interface EditorShareOptions {
   projectName: string;
 }
 
+/**
+ * Reasons the MakeCode editor startup can fail.
+ */
+export type StartUpFailure = 'timeout' | 'offline' | 'load-error';
+
+/**
+ * Result of waitUntilReady().
+ */
+export type StartUpResult =
+  | { ready: true }
+  | { ready: false; reason: StartUpFailure };
+
 export interface Options {
   /**
    * A function that provides the initial set of projects to be used when initialising MakeCode.
@@ -133,6 +145,14 @@ export interface Options {
   onSave?: (save: { name: string; hex: string }) => void;
 
   /**
+   * Called when the iframe fails to load.
+   *
+   * This does not cover all failure modes but when it fires it is an
+   * unambiguous signal of failure.
+   */
+  onLoadError?: () => void;
+
+  /**
    * Requests the embedding app handles a press/tap on the back arrow.
    *
    * Applies only with `controller` set to `2`.
@@ -146,6 +166,29 @@ export interface Options {
    * Applies only with `controller` set to `2`.
    */
   onBackLongPress?: () => void;
+
+  /**
+   * Timeout in milliseconds for the MakeCode editor to reach the
+   * workspace loaded state. Defaults to 90000 (90 seconds).
+   * Set to 0 to disable the timeout.
+   */
+  startUpTimeout?: number;
+}
+
+/**
+ * A one-shot signal that can be resolved once and awaited many times.
+ */
+class Signal {
+  private resolve!: () => void;
+  readonly promise = new Promise<void>((r) => {
+    this.resolve = r;
+  });
+  resolved = false;
+
+  fire() {
+    this.resolved = true;
+    this.resolve();
+  }
 }
 
 /**
@@ -165,6 +208,11 @@ export class MakeCodeFrameDriver {
       message: unknown;
     }
   >();
+
+  private workspaceLoaded = new Signal();
+  private editorContentLoaded = new Signal();
+  private loadError = new Signal();
+  private startUpTimestamp = 0;
 
   private _expectedOrigin: string | undefined;
   private expectedOrigin = () => {
@@ -260,6 +308,7 @@ export class MakeCodeFrameDriver {
           );
         }
         case 'workspaceloaded': {
+          this.workspaceLoaded.fire();
           return this.options.onWorkspaceLoaded?.(
             data as EditorWorkspaceSyncRequest
           );
@@ -271,6 +320,7 @@ export class MakeCodeFrameDriver {
           return;
         }
         case 'editorcontentloaded': {
+          this.editorContentLoaded.fire();
           return this.options.onEditorContentLoaded?.(
             data as EditorContentLoadedRequest
           );
@@ -311,6 +361,11 @@ export class MakeCodeFrameDriver {
   ) {}
 
   initialize() {
+    this.startUpTimestamp = Date.now();
+    this.workspaceLoaded = new Signal();
+    this.editorContentLoaded = new Signal();
+    this.loadError = new Signal();
+
     window.addEventListener('message', this.listener);
     // If the iframe is already loaded this will ensure we still initialize correctly
     this.iframe()?.contentWindow?.postMessage(
@@ -327,6 +382,92 @@ export class MakeCodeFrameDriver {
 
   dispose() {
     window.removeEventListener('message', this.listener);
+  }
+
+  /**
+   * Notify the driver that the iframe failed to load.
+   *
+   * Called by the React component's onError handler or manually by vanilla
+   * consumers.
+   */
+  notifyLoadError(): void {
+    this.loadError.fire();
+    this.options.onLoadError?.();
+  }
+
+  /**
+   * Whether the editor workspace has fully loaded since initialize().
+   */
+  get isReady(): boolean {
+    return this.workspaceLoaded.resolved && this.editorContentLoaded.resolved;
+  }
+
+  /**
+   * Resolves when the MakeCode editor is fully loaded (both editor content
+   * loaded and workspace loaded), or resolves with a failure reason if
+   * startup times out, goes offline, or encounters a load error.
+   */
+  async waitUntilReady(): Promise<StartUpResult> {
+    if (this.isReady) {
+      return { ready: true };
+    }
+    if (this.loadError.resolved) {
+      return { ready: false, reason: 'load-error' };
+    }
+
+    const timeout = this.options.startUpTimeout ?? 90_000;
+    const elapsed = Date.now() - this.startUpTimestamp;
+    const remaining = timeout - elapsed;
+
+    if (timeout > 0 && remaining <= 0) {
+      return { ready: false, reason: 'timeout' };
+    }
+
+    const raceEntries: Promise<StartUpResult>[] = [
+      Promise.all([
+        this.editorContentLoaded.promise,
+        this.workspaceLoaded.promise,
+      ]).then((): StartUpResult => ({ ready: true })),
+    ];
+
+    if (timeout > 0 && remaining > 0) {
+      raceEntries.push(
+        new Promise((resolve) =>
+          setTimeout(
+            () => resolve({ ready: false, reason: 'timeout' }),
+            remaining
+          )
+        )
+      );
+    }
+
+    raceEntries.push(
+      this.loadError.promise.then(
+        (): StartUpResult => ({ ready: false, reason: 'load-error' })
+      )
+    );
+
+    // MakeCode requires a network connection to load.
+    const offlineAbort = new AbortController();
+    raceEntries.push(
+      new Promise((resolve) => {
+        if (!navigator.onLine) {
+          resolve({ ready: false, reason: 'offline' });
+        } else {
+          window.addEventListener(
+            'offline',
+            () => resolve({ ready: false, reason: 'offline' }),
+            { once: true, signal: offlineAbort.signal }
+          );
+        }
+      })
+    );
+
+    try {
+      return await Promise.race(raceEntries);
+    } finally {
+      offlineAbort.abort();
+    }
   }
 
   private sendRequest = (
