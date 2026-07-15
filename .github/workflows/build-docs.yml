@@ -12,14 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.x'
+          cache: npm
+      - run: npm install -g npm@11 --registry=https://registry.npmjs.org
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - run: npm ci
       - name: Build docs
         run: npm run docs
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./docs/build
 
@@ -36,4 +41,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
