@@ -7,6 +7,7 @@ import {
   Options,
 } from '../../vanilla/makecode-frame-driver.js';
 import { MakeCodeProject } from '../../vanilla/pxt.js';
+import { editorVersionArgs } from '../config.js';
 import MakeCodeToolbar from '../MakeCodeToolbar.js';
 import StoryWrapper from '../StoryWrapper.js';
 
@@ -39,9 +40,11 @@ const renderEditor = (args: StoryArgs) => {
     // Create an iframe element.
     const iframe = document.createElement('iframe');
     iframe.allow = 'usb; autoplay; camera; microphone;';
+    const { baseUrl = 'https://makecode.microbit.org', version } =
+      editorVersionArgs(args.options?.version);
     iframe.src = createMakeCodeURL(
-      'https://makecode.microbit.org',
-      args.options?.version === 'default' ? undefined : args.options?.version,
+      baseUrl,
+      version,
       args.options?.lang,
       args.options?.controller ?? 1,
       args.options?.queryParams

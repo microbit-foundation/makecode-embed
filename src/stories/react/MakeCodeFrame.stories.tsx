@@ -7,7 +7,11 @@ import {
   MakeCodeFrameProps,
 } from '../../react/MakeCodeFrame.js';
 import { MakeCodeProject } from '../../vanilla/pxt.js';
-import { controllerId } from '../config.js';
+import {
+  controllerId,
+  editorVersionArgs,
+  localPxtBaseUrl,
+} from '../config.js';
 import StoryWrapper from '../StoryWrapper.js';
 import MakeCodeToolbar from '../MakeCodeToolbar.js';
 
@@ -16,10 +20,13 @@ const meta: Meta<typeof MakeCodeFrame> = {
   component: MakeCodeFrame,
   argTypes: {
     version: {
-      options: ['default', 'beta'],
+      options: ['default', 'beta', 'local'],
       defaultValue: undefined,
       name: 'version',
-      control: { type: 'radio' },
+      control: {
+        type: 'radio',
+        labels: { local: `local (${localPxtBaseUrl})` },
+      },
     },
   },
 };
@@ -73,7 +80,7 @@ export const MakeCodeEditorWithControlsStory: Story = {
     return (
       <StoryWrapper>
         <MakeCodeEditorWithControls
-          version={version === 'default' ? undefined : version}
+          {...editorVersionArgs(version)}
           // TODO: make this an argument and perhaps a real prop
           queryParams={{ hideMenu: '' }}
         />
@@ -94,7 +101,7 @@ export const MakeCodeEditorControllerAppModeStory: Story = {
         <MakeCodeEditorWithControls
           controller={2}
           controllerId={controllerId}
-          version={version === 'default' ? undefined : version}
+          {...editorVersionArgs(version)}
           // App specific events
           onDownload={(download) => console.log('download', download)}
           onSave={(save) => console.log('save', save)}

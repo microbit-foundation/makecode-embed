@@ -756,10 +756,21 @@ export class MakeCodeFrameDriver {
     } as EditorMessageSetHighContrastRequest);
   }
 
+  /**
+   * @deprecated Keyboard controls are always enabled in current MakeCode
+   * versions so this does nothing.
+   */
   async toggleKeyboardControls(): Promise<void> {
     await this.sendRequest({
       type: 'pxteditor',
       action: 'togglekeyboardcontrols',
+    });
+  }
+
+  async toggleScreenReaderMode(): Promise<void> {
+    await this.sendRequest({
+      type: 'pxteditor',
+      action: 'togglescreenreadermode',
     });
   }
 

@@ -185,6 +185,7 @@ export interface EditorMessageRequest extends EditorMessage {
     | 'sethighcontrast' // EditorMessageSetHighContrastRequest
     | 'togglegreenscreen'
     | 'togglekeyboardcontrols'
+    | 'togglescreenreadermode'
     | 'settracestate' //
     | 'setsimulatorfullscreen' // EditorMessageSimulatorFullScreenRequest
     | 'print' // print code
@@ -545,6 +546,7 @@ export interface InfoMessage {
   locale: string;
   availableLocales?: string[];
   keyboardControls: boolean;
+  screenReaderMode?: boolean;
 }
 
 export interface PackageExtensionData {

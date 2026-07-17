@@ -104,8 +104,8 @@ const MakeCodeToolbar = ({
         <button onClick={() => driver.current!.toggleDebugSloMo()}>
           Toggle debug slow mo
         </button>
-        <button onClick={() => driver.current!.toggleKeyboardControls()}>
-          Keyboard controls
+        <button onClick={() => driver.current!.toggleScreenReaderMode()}>
+          Screen reader mode
         </button>
         <button onClick={() => driver.current!.toggleGreenScreen()}>
           Green screen
