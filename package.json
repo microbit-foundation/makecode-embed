@@ -16,10 +16,6 @@
     "fsevents": true
   },
   "packageManager": "npm@11.18.0",
-  "engines": {
-    "node": ">=24.0.0",
-    "npm": ">=11.18.0"
-  },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "typings": "./dist/esm/index.d.ts",
