@@ -70,11 +70,11 @@
     "tslib": ">=2.0.0"
   },
   "devDependencies": {
-    "@microbit/eslint-config": "^0.1.2",
+    "@microbit/eslint-config": "^0.2.1",
     "@storybook/react-vite": "^10.5.10",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
-    "eslint": "^9.39.5",
+    "eslint": "^10.9.1",
     "eslint-plugin-storybook": "^10.5.10",
     "prettier": "^3.2.5",
     "storybook": "^10.5.10",
