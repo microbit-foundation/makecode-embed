@@ -1030,7 +1030,8 @@ export type SnippetAnswerTypes =
   | 'dropdown'
   | 'spriteEditor'
   | 'yesno'
-  | string; // TODO(jb) Should include custom answer types for number, enums, string, image
+  // Intersection keeps the named types in autocomplete while allowing others.
+  | (string & {}); // TODO(jb) Should include custom answer types for number, enums, string, image
 
 export interface SnippetGoToOptions {
   question?: number;

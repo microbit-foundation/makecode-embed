@@ -23,7 +23,6 @@ import {
   EditorWorkspaceEvent,
   EditorWorkspaceSaveRequest,
   EditorWorkspaceSyncRequest,
-  EditorWorkspaceSyncResponse,
   ImportExternalProjectOptions,
   ImportFileOptions,
   ImportProjectOptions,
@@ -149,6 +148,23 @@ export interface Options {
 }
 
 /**
+ * The superset of fields the listener discriminates on before casting
+ * messages to their specific types.
+ */
+interface IncomingMessage {
+  type?: string;
+  action?: string;
+  id?: string;
+  success?: boolean;
+  error?: unknown;
+  cmd?: string;
+  // Fields for the native app oriented events, which have no 'type'.
+  name?: string;
+  download?: string;
+  save?: string;
+}
+
+/**
  * A driver for MakeCode.
  *
  * This stores state to correlate requests/responses to and from MakeCode.
@@ -184,8 +200,8 @@ export class MakeCodeFrameDriver {
     if (!expectedOrigin || event.origin !== expectedOrigin) {
       return;
     }
-    const { data } = event;
-    if (typeof data !== 'object') {
+    const data = event.data as IncomingMessage | null;
+    if (typeof data !== 'object' || data === null) {
       return;
     }
 
@@ -200,7 +216,7 @@ export class MakeCodeFrameDriver {
       this.messageQueue.length = 0;
     }
 
-    if (data.type === 'pxteditor') {
+    if (data.type === 'pxteditor' && data.id !== undefined) {
       // A reply to a message we sent.  Some of these have useful data in a
       // semi-standard resp field but others have useful top-level fields so we
       // leave it to the caller to handle each message type.
@@ -220,7 +236,9 @@ export class MakeCodeFrameDriver {
         }
       }
     } else if (data.type === 'pxthost') {
-      this.handleWorkspaceSync(data);
+      void this.handleWorkspaceSync(
+        data as EditorWorkspaceSyncRequest | EditorWorkspaceSaveRequest
+      );
 
       switch (data.action) {
         case 'event': {
@@ -281,19 +299,19 @@ export class MakeCodeFrameDriver {
           return;
         }
       }
-    } else if ('download' in data) {
+    } else if (data.download !== undefined) {
       // Native app oriented event that doesn't have a 'type' field.
       this.options.onDownload?.({
-        name: data.name,
+        name: data.name!,
         hex: data.download,
       });
-    } else if ('save' in data) {
+    } else if (data.save !== undefined) {
       // Native app oriented event that doesn't have a 'type' field.
       this.options.onSave?.({
-        name: data.name,
+        name: data.name!,
         hex: data.save,
       });
-    } else if ('cmd' in data) {
+    } else if (data.cmd !== undefined) {
       // Native app oriented event that doesn't have a 'type' field.
       switch (data.cmd) {
         case 'backtap':
@@ -374,7 +392,7 @@ export class MakeCodeFrameDriver {
             filters,
             searchBar,
           },
-        } as EditorWorkspaceSyncResponse);
+        });
       } else if (event.action === 'workspacesave') {
         this.options.onWorkspaceSave?.(event);
       }
@@ -388,7 +406,7 @@ export class MakeCodeFrameDriver {
           id: event.id,
           success: !error,
           error,
-        } as EditorMessageResponse);
+        });
       }
     }
   }
@@ -807,7 +825,7 @@ export class MakeCodeFrameDriver {
     const { resp } = (await this.sendRequest({
       type: 'pxteditor',
       action: 'info',
-    })) as EditorMessageResponse & { resp: InfoMessage };
+    })) as Omit<EditorMessageResponse, 'resp'> & { resp: InfoMessage };
     return resp;
   }
 

@@ -39,12 +39,12 @@ const MakeCodeEditorWithControls = (
 ) => {
   const savedProjects = useRef<Map<string, MakeCodeProject>>(new Map());
   const ref = useRef<MakeCodeFrameDriver>(null);
-  const initialProjects = useCallback(async () => {
+  const initialProjects = useCallback(() => {
     if (savedProjects.current.size === 0) {
       // Maybe we can switch to using newProject instead?
-      return [defaultMakeCodeProject];
+      return Promise.resolve([defaultMakeCodeProject]);
     }
-    return [...savedProjects.current.values()];
+    return Promise.resolve([...savedProjects.current.values()]);
   }, []);
   return (
     <>
@@ -60,7 +60,7 @@ const MakeCodeEditorWithControls = (
         onWorkspaceReset={(e) => console.log('workspaceReset', e)}
         onWorkspaceEvent={(e) => console.log('workspaceEvent', e)}
         onWorkspaceSave={(e) => {
-          savedProjects.current?.set(e.project!.header!.id, e.project);
+          savedProjects.current?.set(e.project.header!.id, e.project);
           console.log(savedProjects.current);
         }}
         onTutorialEvent={(e) => console.log('tutorialEvent', e)}

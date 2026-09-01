@@ -76,7 +76,7 @@ const MakeCodeToolbar = ({
         <button
           onClick={async () => {
             const result = await driver.current!.shareProject({
-              headerId: [...savedProjects.current!.values()][0].header!.id,
+              headerId: [...savedProjects.current.values()][0].header!.id,
               projectName: 'Example project name',
             });
             console.log(result);
@@ -145,7 +145,7 @@ const MakeCodeToolbar = ({
         <button
           onClick={async () => {
             const result = await driver.current!.renderXml({
-              xml: defaultMakeCodeProject.text!['main.blocks']!,
+              xml: defaultMakeCodeProject.text!['main.blocks'],
             });
             const img = document.body.appendChild(
               document.createElement('img')
@@ -204,7 +204,7 @@ const MakeCodeToolbar = ({
         </button>
         <button
           onClick={() => {
-            driver.current!.setSimulatorFullScreen(true);
+            void driver.current!.setSimulatorFullScreen(true);
           }}
         >
           Set simulator full screen
