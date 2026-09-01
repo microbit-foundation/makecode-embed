@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { ReactNode, useState } from 'react';
 import MakeCodeBlocksRendering from '../../react/MakeCodeBlocksRendering.js';
 import { MakeCodeRenderBlocksProvider } from '../../react/MakeCodeRenderBlocksProvider.js';
