@@ -5,5 +5,8 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "outDir": "./dist/cjs"
-  }
+  },
+  // Storybook 10 types don't resolve under "moduleResolution": "Node".
+  // The ESM build still typechecks the stories.
+  "exclude": ["src/stories"]
 }

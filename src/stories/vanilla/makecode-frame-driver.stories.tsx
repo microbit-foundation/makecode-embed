@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
 import { defaultMakeCodeProject } from '../../vanilla/examples.js';
 import {
