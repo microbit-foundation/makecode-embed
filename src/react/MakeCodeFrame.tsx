@@ -28,8 +28,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
 };
 
-export interface MakeCodeFrameProps
-  extends React.ComponentPropsWithoutRef<'iframe'> {
+export interface MakeCodeFrameProps extends React.ComponentPropsWithoutRef<'iframe'> {
   baseUrl?: string;
   version?: string;
   lang?: string;
@@ -140,9 +139,9 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
     );
     return (
       <MakeCodeFrameInner
+        key={src}
         {...rest}
         ref={ref}
-        key={src}
         src={src}
         options={options}
       />
@@ -150,8 +149,7 @@ const MakeCodeFrame = forwardRef<MakeCodeFrameDriver, MakeCodeFrameProps>(
   }
 );
 
-interface MakeCodeFrameInnerProps
-  extends React.ComponentPropsWithoutRef<'iframe'> {
+interface MakeCodeFrameInnerProps extends React.ComponentPropsWithoutRef<'iframe'> {
   options: Options;
 }
 
