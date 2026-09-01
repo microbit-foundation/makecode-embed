@@ -309,6 +309,7 @@ function createIframe(
   f.style.whiteSpace = 'nowrap';
   f.setAttribute('loading', 'eager');
   f.setAttribute('aria-hidden', 'true');
+  f.inert = true;
   f.src = src;
   document.body.appendChild(f);
   return f;
