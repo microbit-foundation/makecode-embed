@@ -36,7 +36,7 @@ const renderBlocks = (args: StoryArgs) => {
     }
     const renderer = createMakeCodeRenderBlocks(args.options ?? {});
     renderer.initialize();
-    renderer.renderBlocks({ code: args.project }).then((r) => {
+    void renderer.renderBlocks({ code: args.project }).then((r) => {
       if (r.svg) {
         e.innerHTML = `
         <div>

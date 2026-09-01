@@ -40,6 +40,10 @@ const MakeCodeBlocksRendering = ({
   });
   const { renderBlocks } = useMakeCodeRenderBlocksContext();
 
+  // If you render an empty string MakeCode responds with a smiley face, so we
+  // need to check first.
+  const empty = typeof code === 'string' && !code.trim();
+
   useEffect(() => {
     let ignoreReponse = false;
     async function intializeRendering() {
@@ -63,30 +67,21 @@ const MakeCodeBlocksRendering = ({
         }
       } catch (e) {
         if (!ignoreReponse) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          setState({ error: (e as any).toString(), rendering: false });
+          setState({ error: String(e), rendering: false });
         }
       }
     }
-    if (typeof code === 'string' && !code.trim()) {
-      // If you render an empty string MakeCode responds with a smiley face, so we
-      // need to check first.
-      setState({
-        rendering: false,
-        height: 0,
-        width: 0,
-      });
-    } else {
-      intializeRendering();
+    if (!empty) {
+      void intializeRendering();
     }
     return () => {
       ignoreReponse = true;
     };
-  }, [code, packageId, _package, snippetMode, layout, renderBlocks]);
+  }, [empty, code, packageId, _package, snippetMode, layout, renderBlocks]);
 
   const { uri, width, height, error, rendering } = state;
   let component: ReactNode;
-  if (width === 0 && height === 0) {
+  if (empty || (width === 0 && height === 0)) {
     component = null;
   } else if (rendering) {
     component = loaderCmp ? loaderCmp : <div>Loading...</div>;

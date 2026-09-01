@@ -190,7 +190,7 @@ export const Robust: Story = {
     return (
       <StoryWrapper key={version}>
         <MakeCodeRenderBlocksProvider version={adaptStorybookVersion(version)}>
-          <MakeCodeBlocksRendering code={{} as MakeCodeProject} />
+          <MakeCodeBlocksRendering code={{}} />
         </MakeCodeRenderBlocksProvider>
       </StoryWrapper>
     );

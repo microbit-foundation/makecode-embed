@@ -155,11 +155,14 @@ export const createMakeCodeRenderBlocks = (
     return { code: '', type: 'text' };
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let errorTimeout: any;
+  let errorTimeout: ReturnType<typeof setTimeout> | undefined;
   const handleMessage = (ev: MessageEvent) => {
-    const msg = ev.data;
-    if (ev.source !== iframe?.contentWindow || msg.source !== 'makecode') {
+    const msg = ev.data as {
+      source?: string;
+      type?: string;
+      id: string;
+    } | null;
+    if (ev.source !== iframe?.contentWindow || msg?.source !== 'makecode') {
       return;
     }
     switch (msg.type) {
@@ -170,7 +173,7 @@ export const createMakeCodeRenderBlocks = (
         break;
       }
       case 'renderblocks': {
-        const id: string = msg.id;
+        const id = msg.id;
         const matchingRequest = pendingRequests[id];
         if (!matchingRequest) {
           return;
@@ -273,13 +276,15 @@ function defaultPackageFromDependencies(
     typeof req.code === 'object' &&
     req.code.text!['pxt.json']
   ) {
-    const parsed = JSON.parse(req.code.text!['pxt.json']);
-    if (typeof parsed === 'object') {
+    const parsed: unknown = JSON.parse(req.code.text!['pxt.json']);
+    if (typeof parsed === 'object' && parsed !== null) {
       // Cope with extensions with spaces in their names. Otherwise pxt rejects
       // adding the dependency even if it would in normal usage.
       // https://github.com/microbit-foundation/classroom-management-tool/issues/463
       const sanitizedName = (s: string) => s.replace(/[^a-zA-Z0-9_-]/g, '_');
-      const dependencies: Record<string, string> = parsed.dependencies || {};
+      const dependencies =
+        (parsed as { dependencies?: Record<string, string> }).dependencies ??
+        {};
       const result = Object.keys(dependencies)
         .map((name) => `${sanitizedName(name)}=${dependencies[name]}`)
         .join(',');

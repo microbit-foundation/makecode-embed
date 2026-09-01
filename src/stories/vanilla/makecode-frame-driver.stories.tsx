@@ -58,14 +58,15 @@ const renderEditor = (args: StoryArgs) => {
     // Create and initialise an instance of MakeCodeFrameDriver.
     ref.current = new MakeCodeFrameDriver(
       {
-        initialProjects: async () => (args.project ? [args.project] : []),
+        initialProjects: () =>
+          Promise.resolve(args.project ? [args.project] : []),
         onEditorContentLoaded: (e) => console.log('editorContentLoaded', e),
         onWorkspaceLoaded: (e) => console.log('workspaceLoaded', e),
         onWorkspaceSync: (e) => console.log('workspaceSync', e),
         onWorkspaceReset: (e) => console.log('workspaceReset', e),
         onWorkspaceEvent: (e) => console.log('workspaceEvent', e),
         onWorkspaceSave: (e) => {
-          const headerId = e.project!.header!.id;
+          const headerId = e.project.header!.id;
           savedProjects.set(headerId, e.project);
           console.log(savedProjects);
         },
