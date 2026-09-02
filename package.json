@@ -15,7 +15,7 @@
     "esbuild": true,
     "fsevents": true
   },
-  "packageManager": "npm@11.18.0",
+  "packageManager": "npm@11.19.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "typings": "./dist/esm/index.d.ts",
@@ -79,7 +79,7 @@
     "prettier": "^3.2.5",
     "storybook": "^10.5.10",
     "tslib": "^2.6.2",
-    "typedoc": "^0.27.6",
+    "typedoc": "^0.28.20",
     "typescript": "^5.2.2"
   }
 }
