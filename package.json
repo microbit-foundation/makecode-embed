@@ -79,7 +79,7 @@
     "prettier": "^3.2.5",
     "storybook": "^10.5.10",
     "tslib": "^2.6.2",
-    "typedoc": "^0.27.6",
+    "typedoc": "^0.28.20",
     "typescript": "^5.2.2"
   }
 }
