@@ -15,7 +15,7 @@
     "esbuild": true,
     "fsevents": true
   },
-  "packageManager": "npm@11.19.0",
+  "packageManager": "npm@11.19.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "typings": "./dist/esm/index.d.ts",
