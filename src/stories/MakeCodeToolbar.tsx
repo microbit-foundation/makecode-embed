@@ -15,7 +15,7 @@ const MakeCodeToolbar = ({
   driver,
   savedProjects,
 }: {
-  driver: RefObject<MakeCodeFrameDriver>;
+  driver: RefObject<MakeCodeFrameDriver | null>;
   savedProjects: MutableRefObject<Map<string, MakeCodeProject>>;
 }) => {
   return (
