@@ -38,7 +38,7 @@ const MakeCodeEditorWithControls = (
   props: Omit<MakeCodeFrameProps, 'initialProjects'>
 ) => {
   const savedProjects = useRef<Map<string, MakeCodeProject>>(new Map());
-  const ref = useRef<MakeCodeFrameDriver>(null);
+  const ref = useRef<MakeCodeFrameDriver | null>(null);
   const initialProjects = useCallback(() => {
     if (savedProjects.current.size === 0) {
       // Maybe we can switch to using newProject instead?
